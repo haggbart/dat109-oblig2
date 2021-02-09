@@ -60,6 +60,15 @@
 <!--            <artifactId>spring-security-test</artifactId>-->
 <!--            <scope>test</scope>-->
 <!--        </dependency> -->
+
+        <!-- https://mvnrepository.com/artifact/com.afrunt.randomjoke/random-joke-crawler -->
+        <dependency>
+            <groupId>com.afrunt.randomjoke</groupId>
+            <artifactId>random-joke-crawler</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

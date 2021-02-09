@@ -1,4 +1,4 @@
-package no.hvl.dat109.bilutleie.bilutleie;
+package no.hvl.dat109.bilutleie;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,5 +9,4 @@ class BilutleieApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

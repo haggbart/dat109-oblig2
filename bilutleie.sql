@@ -49,6 +49,7 @@ create table customer
 create table reservation
 (
     id               serial,
+    cargroup         cargroup,
     car              int,
     customer         int,
     creditcardnumber int,
@@ -58,6 +59,7 @@ create table reservation
 
     enddate          timestamp,
     endmilage        int,
+
 
     constraint reservation_pk primary key (id),
     constraint car_fk foreign key (car) references car,

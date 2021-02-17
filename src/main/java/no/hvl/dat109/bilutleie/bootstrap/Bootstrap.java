@@ -6,7 +6,6 @@ import no.hvl.dat109.bilutleie.service.PersonService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 

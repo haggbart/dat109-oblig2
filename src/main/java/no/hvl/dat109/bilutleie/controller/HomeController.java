@@ -2,6 +2,7 @@ package no.hvl.dat109.bilutleie.controller;
 
 import no.hvl.dat109.bilutleie.service.GreetingService;
 import no.hvl.dat109.bilutleie.service.JokeService;
+import no.hvl.dat109.bilutleie.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +13,20 @@ public class HomeController {
 
     private final GreetingService greetingService;
     private final JokeService jokeService;
+    private final PersonService personService;
 
-    public HomeController(GreetingService greetingService, JokeService jokeService) {
+    public HomeController(GreetingService greetingService, JokeService jokeService, PersonService personService) {
         this.greetingService = greetingService;
         this.jokeService = jokeService;
+        this.personService = personService;
     }
 
     @GetMapping("/")
     public String sayHello(Model model) {
         model.addAttribute("greeting", greetingService.greet());
         model.addAttribute("joke", jokeService.getRandomJoke());
+        model.addAttribute("persons", personService.getPersons());
+
         return "index";
     }
 

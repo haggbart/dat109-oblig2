@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+</head>
+<body>
+<h1>list alle biler i databasen:</h1>
+<p th:each="car : ${cars}" th:text="${car}"></p>
+
+<h1>list biler fra kategori A:</h1>
+<p th:each="car : ${carsCategoryA}" th:text="${car}"></p>
+
+
+<form action="testpost" method="post">
+    <input type="datetime-local" name="date">
+    <input type="text" name="test">
+    <button type="submit">Submit</button>
+</form>
+
+<h3>from test input: </h3>
+<p th:text="${test}"></p>
+<p th:text="${date}"></p>
+</body>
+</html>

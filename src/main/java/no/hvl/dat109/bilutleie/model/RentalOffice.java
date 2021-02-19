@@ -24,30 +24,16 @@ public class RentalOffice {
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(mappedBy = "rentalOffice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rentalOffice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Car> cars = new HashSet<>();
 
-    public RentalOffice(Address add, String pn) {
-        address = add; phoneNumber = pn;
+    public RentalOffice(String phoneNumber, Address address) {
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
-
-    /*
-    create table rentaloffice
-(
-    id          serial,
-    address     int,
-    phonenumber varchar(45),
-    constraint rentaloffice_pk primary key (id),
-    constraint address_fk foreign key (address) references address
-);
-     */
 
     @Override
     public String toString() {
-        return "RentalOffice{" +
-                "id=" + id +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
-                '}';
+        return String.format("%s Phone: %s", address, phoneNumber);
     }
 }

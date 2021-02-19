@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Hei</title>
+<head th:replace="~{fragments/header}">
+  <meta charset="UTF-8">
+  <title>Title</title>
+
 </head>
 <body>
-<h1 th:text="${greeting}">Greeting goes here</h1>
-<h2 th:text="${joke}">Joke goes here</h2>
+<nav th:replace="~{fragments/navbar}"></nav>
 
-<h3>Persons in database:</h3>
-<p th:each="person: ${persons}" th:text="${person}"></p>
+<div class="container bg-white">
+  <h1 th:text="${greeting}">Greeting goes here</h1>
+  <h2 th:text="${joke}">Joke goes here</h2>
 
+  <h3>Persons in database:</h3>
+  <p th:each="person: ${persons}" th:text="${person}"></p>
+</div>
+
+<th:block th:replace="~{fragments/endscripts}"/>
 </body>
 </html>

@@ -26,6 +26,6 @@ public class CarService {
 
     public List<Car> getCars(CarCategory category) {
 
-        return carRepository.findAllByCarCategoryEquals(category);
+        return carRepository.findAllByCategoryEquals(category);
     }
 }

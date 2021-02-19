@@ -15,7 +15,5 @@ public interface CarRepository extends CrudRepository<Car, Long> {
 //    List<Car> findCars
 
 
-    List<Car> findAllByCarCategoryEquals(@Param("category") CarCategory category);
-
-
+    List<Car> findAllByCategoryEquals(@Param("category") CarCategory category);
 }

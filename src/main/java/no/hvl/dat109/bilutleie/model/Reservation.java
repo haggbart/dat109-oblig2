@@ -1,6 +1,8 @@
 package no.hvl.dat109.bilutleie.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,15 +27,4 @@ public class Reservation {
 
     @ManyToOne
     private Customer customer;
-
-
-    public Reservation(long ccn,Customer customer, Date startDate, Date endDate, Car car) {
-
-        this.ccn = ccn;
-        this.startMileage = car.getMileage();
-        this.customer = customer;
-        this.startDate = startDate;
-        this.endDate = endDate;
-
-    }
 }

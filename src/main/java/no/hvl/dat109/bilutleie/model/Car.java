@@ -16,11 +16,15 @@ public class Car {
 
     @Id
     private Long regNumber;
-    
+
     private Long mileage;
 
+    private String brand;
+
+    private String color;
+
     @Enumerated(EnumType.STRING)
-    private CarCategory carCategory;
+    private CarCategory category;
 
     @OneToMany(mappedBy = "car")
     private Set<Reservation> reservations = new HashSet<>();
@@ -28,19 +32,14 @@ public class Car {
     @ManyToOne(fetch = FetchType.LAZY)
     private RentalOffice rentalOffice;
 
-    public Car(Long reg, CarCategory cc) {
-        regNumber = reg;
-        carCategory = cc;
-        mileage = 0L;
+    public Car(Long regNumber, CarCategory category) {
+        this.regNumber = regNumber;
+        this.category = category;
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "regNumber=" + regNumber +
-                ", mileage=" + mileage +
-                ", carCategory=" + carCategory +
-                ", rentalOffice=" + rentalOffice +
-                '}';
+        return String.format("Registration number: %d, category: %s, brand: %s, Office: %s",
+                regNumber, category, brand, rentalOffice);
     }
 }

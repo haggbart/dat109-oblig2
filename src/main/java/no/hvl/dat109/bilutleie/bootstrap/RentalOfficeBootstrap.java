@@ -21,7 +21,7 @@ public class RentalOfficeBootstrap {
 
 
         Address testAddress = new Address("Test", 1337, "Førde");
-        RentalOffice office1 = new RentalOffice(testAddress, "90808874");
+        RentalOffice office1 = new RentalOffice("90808874", testAddress);
 
         officeService.save(office1);
 

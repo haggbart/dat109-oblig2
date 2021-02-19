@@ -10,14 +10,15 @@ public class Customer {
     @Id
     private String phoneNumber;
 
-    private String firstname;
+    private String forename;
 
-    private String lastname;
+    private String surname;
+
+    private String email;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
     @OneToMany(mappedBy="customer")
     private Set<Reservation> reservation;
-
 }

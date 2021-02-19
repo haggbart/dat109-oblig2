@@ -19,20 +19,20 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/cars")
-    public String listOffers(Model model) {
-        model.addAttribute("cars", carService.getCars());
-        model.addAttribute("carsCategoryA", carService.getCars(CarCategory.A));
-        return "offerselect";
-    }
-
-    @PostMapping("testpost")
-    public String listOffers(@RequestParam String test, @RequestParam String date, Model model) {
-        System.out.println("test: " + test);
-        model.addAttribute("test", test);
-        model.addAttribute("date", date);
-        LocalDateTime dateObject = LocalDateTime.parse(date);
-        System.out.print("date from object: " + dateObject);
-        return "offerselect";
-    }
+//    @GetMapping("cars")
+//    public String listOffers(Model model) {
+//        model.addAttribute("cars", carService.getCars());
+//        model.addAttribute("carsCategoryA", carService.getCars(CarCategory.A));
+//        return "offerselect";
+//    }
+//
+//    @PostMapping("testpost")
+//    public String listOffers(@RequestParam String test, @RequestParam String date, Model model) {
+//        System.out.println("test: " + test);
+//        model.addAttribute("test", test);
+//        model.addAttribute("date", date);
+//        LocalDateTime dateObject = LocalDateTime.parse(date);
+//        System.out.print("date from object: " + dateObject);
+//        return "offerselect";
+//    }
 }

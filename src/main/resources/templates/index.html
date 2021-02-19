@@ -4,16 +4,24 @@
   <meta charset="UTF-8">
   <title>Title</title>
 
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
 
 <div class="container bg-white">
-  <h1 th:text="${greeting}">Greeting goes here</h1>
-  <h2 th:text="${joke}">Joke goes here</h2>
 
-  <h3>Persons in database:</h3>
-  <p th:each="person: ${persons}" th:text="${person}"></p>
+
+  <form th:action="@{/offerselect}" method="post">
+
+    <h2>Utlevering & innlevering</h2>
+    <select class="form-select" aria-label="Velg utleveringssted" required>
+
+      <option th:each="office : ${offices}" th:value="${office.id}" th:text="${office.address.city}" value="id">Office</option>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+
 </div>
 
 <th:block th:replace="~{fragments/endscripts}"/>

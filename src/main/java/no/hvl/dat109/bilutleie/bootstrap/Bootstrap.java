@@ -13,10 +13,14 @@ import java.util.List;
 @Component
 public class Bootstrap {
 
-    private PersonService personService;
+    private final PersonService personService;
+    private final CarBootstrap carBootstrap;
+    private final RentalOfficeBootstrap rentalOfficeBootstrap;
 
-    public Bootstrap(PersonService personService) {
+    public Bootstrap(PersonService personService, CarBootstrap carBootstrap, RentalOfficeBootstrap rentalOfficeBootstrap) {
         this.personService = personService;
+        this.carBootstrap = carBootstrap;
+        this.rentalOfficeBootstrap = rentalOfficeBootstrap;
     }
 
     @PostConstruct
@@ -29,12 +33,21 @@ public class Bootstrap {
         personService.save(p2);
 
 
+
+
         List<Person> persons = personService.getPersons();
         persons.forEach(System.out::println);
 
 
         Person per = personService.findFirst("per");
         System.out.println(per);
+
+
+
+        rentalOfficeBootstrap.createOffices();
+        carBootstrap.createCars();
+
+
         log.info("Bootstrap complete");
     }
 }

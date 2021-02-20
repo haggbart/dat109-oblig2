@@ -7,24 +7,24 @@
   <form action="#" method="post" th:action="@{/reservation/locationtime}" th:object="${locationTime}">
     <div class="row">
       <div class="col">
-        <p>Utlevering & innlevering</p>
+        <span>Utlevering & innlevering</span>
         <select aria-label="Velg utleveringssted" class="form-select" required th:field="*{pickup}">
           <option th:each="office : ${offices}" th:text="${office.address.city}" th:value="${office.id}" value="id">Office
           </option>
         </select>
       </div>
       <div class="col">
-        <p>Tid utlevering</p>
-        <input class="form-text" id="startdate" type="text" th:field="*{startDate}" autocomplete="off">
+        <span>Tid utlevering</span>
+        <input class="form-control" id="startdate" type="text" th:field="*{startDate}" autocomplete="off">
         <div class="alert alert-warning" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
       </div>
       <div class="col">
-        <p>Tid innlevering</p>
-        <input class="form-text" id="enddate" type="text" th:field="*{endDate}" autocomplete="off">
+        <span>Tid innlevering</span>
+        <input class="form-control" id="enddate" type="text" th:field="*{endDate}" autocomplete="off">
         <div class="alert alert-warning" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
       </div>
-      <div class="col">
-        <button type="submit">Submit</button>
+      <div class="col align-items-center">
+        <button class="btn btn-primary" type="submit">Submit</button>
       </div>
     </div>
 

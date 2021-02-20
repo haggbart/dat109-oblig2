@@ -11,9 +11,20 @@
 
 <!--TODO seperate main from the rest-->
 <script>
-    const format = 'd/m/Y h:m';
-    jQuery('#startdate').datetimepicker({format: format});
-    jQuery('#enddate').datetimepicker({format: format});
+    const format = 'd/m/Y H:m';
+
+    jQuery('#startdate').datetimepicker({
+        format: format,
+        minDate: 0,
+        defaultTime: '16:00'
+    });
+    jQuery('#enddate').datetimepicker({
+        format: format,
+        minDate: '-1969/12/31',
+        defaultTime: '16:00',
+        defaultDate: '+1970/01/02',
+        // step: 30
+    });
 </script>
 </body>
 </html>

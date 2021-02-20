@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -29,6 +30,21 @@ public class Customer {
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(mappedBy="customer")
-    private Set<Reservation> reservation;
+    @OneToMany(mappedBy="customer", fetch = FetchType.EAGER)
+    private Set<Reservation> reservation = new HashSet<>();
+
+    public Customer(String forename, Address address) {
+        this.forename = forename;
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "forename='" + forename + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }

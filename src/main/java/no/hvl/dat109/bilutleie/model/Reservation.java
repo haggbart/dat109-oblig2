@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +22,8 @@ public class Reservation {
     private long ccn;
     private long startMileage;
     private long endMilage;
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     @Enumerated(value = EnumType.STRING)
     private CarCategory carCategory;
@@ -39,4 +39,14 @@ public class Reservation {
 
     @ManyToOne
     private RentalOffice dropoff;
+
+    public Reservation(LocalDateTime startDate, LocalDateTime endDate, CarCategory carCategory, Customer customer,
+                       RentalOffice pickup, RentalOffice dropoff) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.carCategory = carCategory;
+        this.customer = customer;
+        this.pickup = pickup;
+        this.dropoff = dropoff;
+    }
 }

@@ -10,20 +10,22 @@ import javax.annotation.PostConstruct;
 @Component
 public class Bootstrap {
 
-    private final CarBootstrap carBootstrap;
-    private final RentalOfficeBootstrap rentalOfficeBootstrap;
+    private final RentalOfficeData rentalOfficeData;
+    private final CarData carData;
+    private final CustomerData customerData;
 
-    public Bootstrap(CarBootstrap carBootstrap, RentalOfficeBootstrap rentalOfficeBootstrap) {
-        this.carBootstrap = carBootstrap;
-        this.rentalOfficeBootstrap = rentalOfficeBootstrap;
+    public Bootstrap(RentalOfficeData rentalOfficeData, CarData carData, CustomerData customerData) {
+        this.rentalOfficeData = rentalOfficeData;
+        this.carData = carData;
+        this.customerData = customerData;
     }
 
     @PostConstruct
     private void init() {
 
-        rentalOfficeBootstrap.createOffices();
-        carBootstrap.createCars();
-
+        rentalOfficeData.createOffices();
+        carData.createCars();
+        customerData.createCustomers();
 
         log.info("Bootstrap complete");
     }

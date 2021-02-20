@@ -26,7 +26,7 @@ public class RentalOffice {
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(mappedBy = "rentalOffice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rentalOffice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private final Set<Car> cars = new HashSet<>();
 
     public RentalOffice(String phoneNumber, Address address) {

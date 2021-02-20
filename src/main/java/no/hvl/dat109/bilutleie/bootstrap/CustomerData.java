@@ -1,5 +1,6 @@
 package no.hvl.dat109.bilutleie.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.model.*;
 import no.hvl.dat109.bilutleie.service.CustomerService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Component
 public class CustomerData {
 
@@ -40,7 +42,12 @@ public class CustomerData {
         RentalOffice forde = officeService.getOffices().get(0);
         List<Reservation> reservations = new ArrayList<>() {{
             add(new Reservation(now, now.plusDays(4), CarCategory.A, customers.get(0), forde, forde));
+            add(new Reservation(now.plusDays(10), now.plusDays(14), CarCategory.B, customers.get(0), forde, forde));
         }};
         reservations.forEach(reservationService::save);
+
+        // some testing
+        officeService.availableCategories(forde, now.plusDays(20), now.plusDays(24));
+        officeService.availableCategories(forde, now, now.plusDays(24));
     }
 }

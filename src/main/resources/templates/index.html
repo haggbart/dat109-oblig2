@@ -1,29 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header}">
-  <meta charset="UTF-8">
-  <title>Title</title>
-
-  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<html lang="en" th:include="layouts/main :: page(title='Hjem')" xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:replace="~{fragments/navbar}"></nav>
-
-<div class="container bg-white">
+<th:block th:fragment="content">
 
 
-  <form th:action="@{/offerselect}" method="post">
-
+  <form action="#" method="post" th:action="@{/reservation/locationtime}" th:object="${locationTime}">
     <h2>Utlevering & innlevering</h2>
-    <select class="form-select" aria-label="Velg utleveringssted" required>
+    <select aria-label="Velg utleveringssted" class="form-select" required th:field="*{pickup}">
 
-      <option th:each="office : ${offices}" th:value="${office.id}" th:text="${office.address.city}" value="id">Office</option>
+      <option th:each="office : ${offices}" th:text="${office.address.city}" th:value="${office.id}" value="id">Office
+      </option>
     </select>
     <button type="submit">Submit</button>
   </form>
 
-</div>
 
-<th:block th:replace="~{fragments/endscripts}"/>
+</th:block>
 </body>
 </html>

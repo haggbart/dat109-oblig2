@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="page(title)" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: common_header(title=${title})"></head>
+<body>
+<nav th:replace="fragments/nav :: nav"></nav>
+
+<div class="container bg-white">
+  <div th:replace="this :: content"></div>
+</div>
+<th:block th:replace="fragments/endscripts :: #endscripts"/>
+
+</body>
+</html>

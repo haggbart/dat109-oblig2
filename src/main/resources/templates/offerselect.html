@@ -1,25 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Cars</title>
-</head>
+<html lang="en" th:include="layouts/main :: page(title='Velg bilkategori')" xmlns:th="http://www.thymeleaf.org">
+
 <body>
-<h1>list alle biler i databasen:</h1>
+<th:block th:fragment="content">
+
+<h1 th:text="|Biler tilgjengelig i  ${city}:|">Biler tilgjengelig</h1>
 <p th:each="car : ${cars}" th:text="${car}"></p>
 
-<!--<h1>list biler fra kategori A:</h1>-->
-<!--<p th:each="car : ${carsCategoryA}" th:text="${car}"></p>-->
-
-
-<!--&lt;!&ndash;<form method="post">&ndash;&gt;-->
-<!--&lt;!&ndash;    <input type="datetime-local" name="date">&ndash;&gt;-->
-<!--&lt;!&ndash;    <input type="text" name="test">&ndash;&gt;-->
-<!--&lt;!&ndash;    <button type="submit">Submit</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</form>&ndash;&gt;-->
-
-<!--<h3>from test input: </h3>-->
-<!--<p th:text="${test}"></p>-->
-<!--<p th:text="${date}"></p>-->
+</th:block>
 </body>
 </html>

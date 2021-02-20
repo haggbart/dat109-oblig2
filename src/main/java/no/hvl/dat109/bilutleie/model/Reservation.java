@@ -22,9 +22,19 @@ public class Reservation {
     private Date startDate;
     private Date endDate;
 
+    @Enumerated(value = EnumType.STRING)
+    private CarCategory carCategory;
+
     @ManyToOne
     private Car car;
 
     @ManyToOne
     private Customer customer;
+
+    @ManyToOne
+    private RentalOffice pickup;
+
+    @ManyToOne
+    private RentalOffice dropoff;
+
 }

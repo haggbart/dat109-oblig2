@@ -22,4 +22,8 @@ public class RentalOfficeService {
     public List<RentalOffice> getOffices() {
         return officeRepository.findAll();
     }
+
+    public RentalOffice getOffice(long id) {
+        return officeRepository.findById(id).orElse(null);
+    }
 }

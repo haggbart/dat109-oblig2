@@ -16,10 +16,12 @@
       <div class="col">
         <p>Tid utlevering</p>
         <input class="form-text" id="startdate" type="text" th:field="*{startDate}" autocomplete="off">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
       </div>
       <div class="col">
         <p>Tid innlevering</p>
         <input class="form-text" id="enddate" type="text" th:field="*{endDate}" autocomplete="off">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
       </div>
       <div class="col">
         <button type="submit">Submit</button>

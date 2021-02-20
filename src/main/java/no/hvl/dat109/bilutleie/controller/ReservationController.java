@@ -8,9 +8,14 @@ import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 
 @Slf4j
@@ -39,8 +44,18 @@ public class ReservationController {
     }
 
     @PostMapping("/locationtime")
-    public String locationTimeSubmit(@ModelAttribute ReservationForLocationTimeDto locationTime,
+    public String locationTimeSubmit(@Valid @ModelAttribute("locationTime") ReservationForLocationTimeDto locationTime,
+                                     BindingResult bindingResult,
+                                     Model model,
                                      HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("FAAAAAAAAAAIL");
+            model.addAttribute("offices", officeService.getOffices());
+            return "index";
+        } else {
+            System.out.println("NO ERRORS");
+        }
+
         RentalOffice pickup = officeService.getOffice(locationTime.getPickup());
         ReservationDto reservation = new ReservationDto();
         reservation.setPickup(pickup);

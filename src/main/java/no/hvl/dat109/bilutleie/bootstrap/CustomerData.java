@@ -2,6 +2,7 @@ package no.hvl.dat109.bilutleie.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.model.*;
+import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.CustomerService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import no.hvl.dat109.bilutleie.service.ReservationService;
@@ -18,11 +19,13 @@ public class CustomerData {
     private final CustomerService customerService;
     private final RentalOfficeService officeService;
     private final ReservationService reservationService;
+    private final CarService carService;
 
-    public CustomerData(CustomerService customerService, RentalOfficeService officeService, ReservationService reservationService) {
+    public CustomerData(CustomerService customerService, RentalOfficeService officeService, ReservationService reservationService, CarService carService) {
         this.customerService = customerService;
         this.officeService = officeService;
         this.reservationService = reservationService;
+        this.carService = carService;
     }
 
     public void createCustomers() {
@@ -47,9 +50,9 @@ public class CustomerData {
         reservations.forEach(reservationService::save);
 
         // some testing
-        officeService.availableCategories(forde, now.plusDays(20), now.plusDays(24));
-        officeService.availableCategories(forde, now, now.plusDays(24));
-        officeService.availableCategories(forde, now.minusDays(16), now.plusDays(24));
-        officeService.availableCategories(forde, now.minusDays(16), now.minusDays(2));
+        carService.availableCategories(forde, now.plusDays(20), now.plusDays(24));
+        carService.availableCategories(forde, now, now.plusDays(24));
+        carService.availableCategories(forde, now.minusDays(16), now.plusDays(24));
+        carService.availableCategories(forde, now.minusDays(16), now.minusDays(2));
     }
 }

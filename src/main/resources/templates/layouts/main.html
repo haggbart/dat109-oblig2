@@ -9,5 +9,11 @@
 </div>
 <th:block th:replace="fragments/endscripts :: #endscripts"/>
 
+<!--TODO seperate main from the rest-->
+<script>
+    const format = 'd/m/Y h:m';
+    jQuery('#startdate').datetimepicker({format: format});
+    jQuery('#enddate').datetimepicker({format: format});
+</script>
 </body>
 </html>

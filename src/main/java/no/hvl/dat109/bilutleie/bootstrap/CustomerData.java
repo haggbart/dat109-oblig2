@@ -49,5 +49,7 @@ public class CustomerData {
         // some testing
         officeService.availableCategories(forde, now.plusDays(20), now.plusDays(24));
         officeService.availableCategories(forde, now, now.plusDays(24));
+        officeService.availableCategories(forde, now.minusDays(16), now.plusDays(24));
+        officeService.availableCategories(forde, now.minusDays(16), now.minusDays(2));
     }
 }

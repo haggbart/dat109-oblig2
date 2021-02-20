@@ -1,5 +1,6 @@
 package no.hvl.dat109.bilutleie.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.dto.ReservationDto;
 import no.hvl.dat109.bilutleie.dto.ReservationForLocationTimeDto;
 import no.hvl.dat109.bilutleie.model.RentalOffice;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 
+@Slf4j
 @RequestMapping("/reservation")
 @Controller
 public class ReservationController {
@@ -44,6 +46,8 @@ public class ReservationController {
         reservation.setPickup(pickup);
         System.out.println(pickup);
         session.setAttribute("reservation", reservation);
+        log.debug("startDate: {}", locationTime.getStartDate());
+        log.debug("endDate: {}", locationTime.getEndDate());
 
         session.setAttribute("locationTime", locationTime);
         return "redirect:/reservation/offerselect";

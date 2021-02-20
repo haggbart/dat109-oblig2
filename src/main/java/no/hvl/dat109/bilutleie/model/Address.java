@@ -1,6 +1,6 @@
 package no.hvl.dat109.bilutleie.model;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,12 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Data
 @Entity
 public class Address {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +31,8 @@ public class Address {
         this.city = city;
     }
 
-    //    @OneToMany(mappedBy = "address")
-//    private Set<Address> addresses;
-    /*
-    create table address
-(
-    id      serial,
-    street  varchar(45),
-    zipcode int,
-    city    varchar(45),
-    constraint address_pk primary key (id)
-);
-     */
+    @Override
+    public String toString() {
+        return String.format("%s, %s %s", street, zipcode, city);
+    }
 }

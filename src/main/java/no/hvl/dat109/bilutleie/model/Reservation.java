@@ -1,24 +1,32 @@
 package no.hvl.dat109.bilutleie.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Data
 @Entity
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     private long ccn;
     private long startMileage;
     private long endMilage;
     private Date startDate;
     private Date endDate;
+
+    @Enumerated(value = EnumType.STRING)
+    private CarCategory carCategory;
 
     @ManyToOne
     private Car car;
@@ -26,14 +34,9 @@ public class Reservation {
     @ManyToOne
     private Customer customer;
 
+    @ManyToOne
+    private RentalOffice pickup;
 
-    public Reservation(long ccn,Customer customer, Date startDate, Date endDate, Car car) {
-
-        this.ccn = ccn;
-        this.startMileage = car.getMileage();
-        this.customer = customer;
-        this.startDate = startDate;
-        this.endDate = endDate;
-
-    }
+    @ManyToOne
+    private RentalOffice dropoff;
 }

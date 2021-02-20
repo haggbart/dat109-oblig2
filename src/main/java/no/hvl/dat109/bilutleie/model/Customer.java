@@ -1,14 +1,24 @@
 package no.hvl.dat109.bilutleie.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Set;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Data
 @Entity
 public class Customer {
 
     @Id
-    private String phoneNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String forename;
 

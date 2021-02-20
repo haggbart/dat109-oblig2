@@ -21,9 +21,9 @@ public class CarBootstrap {
     public void createCars() {
 
         RentalOffice rentalOffice = officeService.getOffice(1);
-        Car lambo = new Car(1337L, CarCategory.B);
-        Car golf = new Car(313L, CarCategory.A);
-        Car varebil = new Car(500L, CarCategory.C);
+        Car lambo = new Car("NT 1337", CarCategory.B);
+        Car golf = new Car("DE 313", CarCategory.A);
+        Car varebil = new Car("FE 500", CarCategory.C);
 
         lambo.setRentalOffice(rentalOffice);
         golf.setRentalOffice(rentalOffice);
@@ -34,8 +34,8 @@ public class CarBootstrap {
         carService.save(varebil);
 
         RentalOffice rentalOffice1 = officeService.getOffice(2);
-        Car car1 = new Car(133L, CarCategory.B);
-        Car car2 = new Car(1332L, CarCategory.B);
+        Car car1 = new Car("AB 1332", CarCategory.B);
+        Car car2 = new Car("NO 232", CarCategory.B);
         car1.setRentalOffice(rentalOffice1);
         car2.setRentalOffice(rentalOffice1);
         carService.save(car1);

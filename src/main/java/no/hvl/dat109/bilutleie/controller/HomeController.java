@@ -3,7 +3,6 @@ package no.hvl.dat109.bilutleie.controller;
 import no.hvl.dat109.bilutleie.dto.ReservationForLocationTimeDto;
 import no.hvl.dat109.bilutleie.service.GreetingService;
 import no.hvl.dat109.bilutleie.service.JokeService;
-import no.hvl.dat109.bilutleie.service.PersonService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +13,11 @@ public class HomeController {
 
     private final GreetingService greetingService;
     private final JokeService jokeService;
-    private final PersonService personService;
     private final RentalOfficeService officeService;
 
-    public HomeController(GreetingService greetingService, JokeService jokeService, PersonService personService, RentalOfficeService officeService) {
+    public HomeController(GreetingService greetingService, JokeService jokeService, RentalOfficeService officeService) {
         this.greetingService = greetingService;
         this.jokeService = jokeService;
-        this.personService = personService;
         this.officeService = officeService;
     }
 

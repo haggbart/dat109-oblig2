@@ -2,18 +2,31 @@
 <html lang="en" th:fragment="page(title)" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: common_header(title=${title})"></head>
 <body>
-<nav th:replace="fragments/nav :: nav"></nav>
 
-<div class="container bg-white">
+
+<nav th:replace="fragments/nav :: nav(title=${title})"></nav>
+
+<div id="main" class="container bg-white min-vh-100 ps-4 pt-2">
   <div th:replace="this :: content"></div>
 </div>
 <th:block th:replace="fragments/endscripts :: #endscripts"/>
 
 <!--TODO seperate main from the rest-->
 <script>
-    const format = 'd/m/Y h:m';
-    jQuery('#startdate').datetimepicker({format: format});
-    jQuery('#enddate').datetimepicker({format: format});
+    const format = 'd/m/Y H:m';
+
+    jQuery('#startdate').datetimepicker({
+        format: format,
+        minDate: 0,
+        defaultTime: '16:00'
+    });
+    jQuery('#enddate').datetimepicker({
+        format: format,
+        minDate: '-1969/12/31',
+        defaultTime: '16:00',
+        defaultDate: '+1970/01/02',
+        // step: 30
+    });
 </script>
 </body>
 </html>

@@ -5,14 +5,14 @@ import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Customer;
 import no.hvl.dat109.bilutleie.model.RentalOffice;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class ReservationDto {
 
     private long endMilage;
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     private CarCategory carCategory;
 

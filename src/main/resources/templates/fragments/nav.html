@@ -1,8 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav th:fragment="nav(title)" class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container px-4">
-    <a class="navbar-brand" href="#">Hvor er bilen?
+    <a class="navbar-brand" href="/">Hvor er bilen?
       <!--      <img src="img/logo.svg" alt="main icon">-->
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,13 +13,13 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">1. Velg kjøretøy</a>
+          <a th:classappend="${title == 'Offers' ? 'active' : ''}" class="nav-link" aria-current="page" th:href="@{/reservation/offerselect}">1. Velg kjøretøy</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true" href="#">2. Extras</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">3. Dine detaljer</a>
+          <a th:classappend="${title == 'Details' ? 'active' : 'disabled'}" class="nav-link" href="#" tabindex="-1" aria-disabled="true">3. Dine detaljer</a>
         </li>
       </ul>
     </div>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" th:include="layouts/main :: page(title='Details')" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="content">
+
+  <div class="container">
+    <p th:text="${reservation}"></p>
+  </div>
+</th:block>
+</body>
+</html>

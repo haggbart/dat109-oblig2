@@ -46,6 +46,7 @@ public class CustomerData {
         List<Reservation> reservations = new ArrayList<>() {{
             add(new Reservation(now, now.plusDays(4), CarCategory.A, customers.get(0), forde, forde));
             add(new Reservation(now.plusDays(10), now.plusDays(14), CarCategory.B, customers.get(0), forde, forde));
+            add(new Reservation(now.minusDays(30), now.plusDays(14), CarCategory.C, customers.get(0), forde, forde));
         }};
         reservations.forEach(reservationService::save);
 
@@ -54,5 +55,7 @@ public class CustomerData {
         carService.availableCategories(forde, now, now.plusDays(24));
         carService.availableCategories(forde, now.minusDays(16), now.plusDays(24));
         carService.availableCategories(forde, now.minusDays(16), now.minusDays(2));
+        System.out.println(now);
+        System.out.println(forde);
     }
 }

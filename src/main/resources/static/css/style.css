@@ -18,15 +18,21 @@ body {
 
 .navbar {
     background: #000!important;
+    /*z-index: -1 !important;*/
+    /*height: 5rem;*/
 }
 
 .nav-link {
-    font-size: 1rem;
+    font-size: 1.15rem;
     text-transform: uppercase;
     font-weight: 700;
-    margin: 0.2rem 0.8rem 0 0.8rem
+    margin: 0 0.8rem 0 0.8rem;
 }
 
 .nav-link.active {
     color: var(--mainOrange) !important;
 }
+
+/*.container#main {*/
+/*    margin-top: -0.40rem !important;*/
+/*}*/

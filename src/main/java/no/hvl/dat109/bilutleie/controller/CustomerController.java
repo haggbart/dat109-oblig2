@@ -37,34 +37,24 @@ public class CustomerController {
 
     //  fra getmapping("/details")       model.addAttribute("details", new CustomerForDetailsDto());
     @PostMapping
-    public String createCustomer(@Valid @ModelAttribute("customerDetails") CustomerForDetailsDto customerDetails, BindingResult bindingResult, Model model, HttpSession session) {
+    public String createCustomer(@Valid @ModelAttribute("customerDetails") CustomerForDetailsDto customerDetails, BindingResult bindingResult, HttpSession session) {
 
-        String forename = customerDetails.getForename();
-        String surname = customerDetails.getSurname();
+        if (bindingResult.hasErrors()) {
+            log.debug("FAAAAAILED validation of customerDetails");
+            return "details";
+        }
 
-        Address address = new Address("Nobelsgata 18", 2719, "Oslo");
-
-        log.debug("forname: {}", forename);
-        log.debug("surname: {}", surname);
-
-        Customer customer = new Customer(forename, surname, address);
+        Customer customer = customerService.createCustomer(customerDetails);
+        log.debug("Customer: {}", customer);
 
         var reservationDto = (ReservationDto) session.getAttribute("reservation");
-        Reservation reservation = new Reservation();
-
-        modelMapper.map(reservationDto, reservation);
-        log.debug("ReservationDto: {}", reservationDto);
-
-        // TODO: DO NOT DELETE
-        reservation.setCar(null);
-        log.debug("Reservation: {}", reservation);
+        Reservation reservation = reservationService.createReservation(reservationDto, modelMapper);
 
         customer = customerService.save(customer);
 
         reservation.setCustomer(customer);
 
         reservationService.save(reservation);
-
 
         return "finish";
     }

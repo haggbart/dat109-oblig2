@@ -34,6 +34,10 @@ public class CarService {
         return carRepository.findFirstCarByRentalOfficeAndCategoryEquals(office, category);
     }
 
+    public Car getAvailable(Reservation reservation) {
+        return getAvailable(reservation.getPickup(), reservation.getCarCategory());
+    }
+
     public List<Car> getCars() {
         return carRepository.findAll();
     }

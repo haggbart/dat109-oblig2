@@ -3,6 +3,7 @@ package no.hvl.dat109.bilutleie.repository;
 import no.hvl.dat109.bilutleie.model.Car;
 import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.RentalOffice;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

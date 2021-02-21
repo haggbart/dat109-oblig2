@@ -29,7 +29,7 @@ public class RentalOfficeService {
         return officeRepository.findAll();
     }
 
-    public RentalOffice getOffice(long id) {
+    public RentalOffice getOffice(Long id) {
         return officeRepository.findById(id).orElse(null);
     }
 }

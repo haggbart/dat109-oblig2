@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
+    List<Reservation> findAll();
 
     @Query("select r from Reservation r where r.pickup = :office and :start < r.endDate and :end > r.startDate")
     List<Reservation> findReservationsByOverlap(@Param("office") RentalOffice office,

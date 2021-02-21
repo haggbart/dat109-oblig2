@@ -1,87 +1,59 @@
 package no.hvl.dat109.bilutleie.controller;
 
+
 import lombok.extern.slf4j.Slf4j;
-import no.hvl.dat109.bilutleie.dto.ReservationDto;
-import no.hvl.dat109.bilutleie.dto.ReservationForLocationTimeDto;
-import no.hvl.dat109.bilutleie.model.CarCategory;
+import no.hvl.dat109.bilutleie.model.Car;
+import no.hvl.dat109.bilutleie.model.Reservation;
+import no.hvl.dat109.bilutleie.model.ReservationStatus;
 import no.hvl.dat109.bilutleie.service.CarService;
-import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import no.hvl.dat109.bilutleie.service.ReservationService;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
-@RequestMapping("/reservation")
+@RequestMapping("/admin/reservations")
 @Controller
 public class ReservationController {
 
-    private final CarService carService;
-    private final RentalOfficeService officeService;
     private final ReservationService reservationService;
-    private final ModelMapper mapper;
+    private final CarService carService;
 
-    public ReservationController(CarService carService, RentalOfficeService officeService, ReservationService reservationService, ModelMapper mapper) {
-        this.carService = carService;
-        this.officeService = officeService;
+    public ReservationController(ReservationService reservationService, CarService carService) {
         this.reservationService = reservationService;
-        this.mapper = mapper;
+        this.carService = carService;
     }
 
-    @PostMapping("/locationtime")
-    public String locationTimeSubmit(@Valid @ModelAttribute("locationTime") ReservationForLocationTimeDto locationTime,
-                                     BindingResult bindingResult, Model model, HttpSession session) {
+    @GetMapping
+    public String getReservations(Model model) {
 
-        if (bindingResult.hasErrors() || !validDates(locationTime, bindingResult)) {
-            model.addAttribute("offices", officeService.getOffices());
-            return "index";
-        } else {
-            System.out.println("NO ERRORS");
-        }
-
-        ReservationDto reservation = new ReservationDto();
-        mapper.map(locationTime, reservation);
-
-        session.setAttribute("reservation", reservation);
-        session.setAttribute("locationTime", locationTime);
-        return "redirect:/reservation/offerselect";
+        model.addAttribute("reservations", reservationService.getReservations());
+        return "admin/reservations";
     }
 
-    @GetMapping("/offerselect")
-    public String offerSelectForm(HttpSession session, Model model) {
+    // reserved, fetched, returned
+    @PostMapping("/pickup")
+    public String pickUp(@RequestParam Long id) {
+        log.debug("id = {}", id);
 
-        var reservation = (ReservationDto) session.getAttribute("reservation");
-        model.addAttribute("categories", carService.availableCategories(reservation.getPickup(),
-                reservation.getStartDate(), reservation.getEndDate()));
-        model.addAttribute("city", reservation.getPickup().getAddress().getCity());
-        model.addAttribute("cars", carService.getCarsByOffice(reservation.getPickup()));
-        return "offerselect";
-    }
+        Reservation reservation = reservationService.getReservation(id);
 
-    @PostMapping("/offerselect")
-    public String selectOffer(@RequestParam String category, HttpSession session) {
-        var reservation = (ReservationDto) session.getAttribute("reservation");
-        reservation.setCarCategory(CarCategory.valueOf(category));
-        return "redirect:/reservation/details";
-    }
+        // TODO credit card number from input
+        Long ccn = 123412341234L;
+        reservation.setCcn(ccn);
 
-    @GetMapping("/details")
-    public String detailsForm(Model model, HttpSession session) {
-        model.addAttribute("reservation", (ReservationDto) session.getAttribute("reservation"));
-        return "details";
-    }
-    
-    private boolean validDates(ReservationForLocationTimeDto locationTime, BindingResult bindingResult) {
-        if (locationTime.getStartDate().isBefore(locationTime.getEndDate())) return true;
-        bindingResult.addError(new FieldError("locationTime", "endDate",
-                "Leveringstid må være etter utlevering"));
-        return false;
+        Car car = carService.getAvailable(reservation.getPickup(), reservation.getCarCategory());
+        reservation.setCar(car);
+        reservation.setStartMileage(car.getMileage());
+
+        reservation.setStatus(ReservationStatus.FETCHED);
+
+        reservationService.save(reservation);
+
+        return "redirect:/admin/reservations";
     }
 }

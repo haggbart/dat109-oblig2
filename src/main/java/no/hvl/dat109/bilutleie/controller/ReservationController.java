@@ -42,8 +42,7 @@ public class ReservationController {
 
         Reservation reservation = reservationService.getReservation(id);
 
-        // Legg til i reservation: Creditcard number, car, startmileage
-
+        // TODO credit card number from input
         Long ccn = 123412341234L;
         reservation.setCcn(ccn);
 

@@ -46,11 +46,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "forename='" + forename + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", address=" + address +
-                '}';
+        return String.format("id = %d, %s %s %s", id, forename, surname, email);
     }
 }

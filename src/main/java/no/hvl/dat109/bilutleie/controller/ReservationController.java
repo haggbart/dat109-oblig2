@@ -3,6 +3,7 @@ package no.hvl.dat109.bilutleie.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.model.Car;
+import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Reservation;
 import no.hvl.dat109.bilutleie.model.ReservationStatus;
 import no.hvl.dat109.bilutleie.service.CarService;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
+import java.time.Duration;
+import java.time.Period;
 
 
 @Slf4j
@@ -43,17 +48,36 @@ public class ReservationController {
         Reservation reservation = reservationService.getReservation(id);
 
         // TODO credit card number from input
-        Long ccn = 123412341234L;
+        Long ccn = 1234L;
+        log.debug("ccn = {}", ccn);
         reservation.setCcn(ccn);
 
-        Car car = carService.getAvailable(reservation.getPickup(), reservation.getCarCategory());
-        reservation.setCar(car);
-        reservation.setStartMileage(car.getMileage());
+        // TODO: Get the one actually available
+        Car car = carService.getAvailable(reservation);
 
-        reservation.setStatus(ReservationStatus.FETCHED);
+        reservationService.rentOutCar(reservation, car);
 
         reservationService.save(reservation);
 
         return "redirect:/admin/reservations";
     }
+
+    @PostMapping("/dropoff")
+    public String dropOff(@RequestParam Long id, Model model) {
+        log.debug("id = {}", id);
+
+        Reservation reservation = reservationService.getReservation(id);
+
+        // TODO admin må oppgi input for endMilage
+        reservationService.carReturn(reservation);
+
+        reservationService.save(reservation);
+
+        var paymentDue = reservationService.makeReceipt(reservation);
+
+        model.addAttribute("paymentDue", paymentDue);
+        model.addAttribute("reservation", reservation);
+        return "admin/receipt";
+    }
+
 }

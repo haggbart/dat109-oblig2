@@ -15,6 +15,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
 
     @Query("select r from Reservation r where r.pickup = :office and :start < r.endDate and :end > r.startDate")
     List<Reservation> findReservationsByOverlap(@Param("office") RentalOffice office,
-                                                @Param("start")LocalDateTime start,
+                                                @Param("start") LocalDateTime start,
                                                 @Param("end") LocalDateTime end);
 }

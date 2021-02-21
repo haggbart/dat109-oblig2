@@ -2,22 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
   <title>Title</title>
 </head>
 <body>
 
 <h2>Reservations:</h2>
-  <div th:each="reservation: ${reservations}">
-    <p th:text="${reservation}">here's a reservation</p>
-      <p><form th:action="@{/admin/reservations/pickup}" method="post">
-        <button type="submit" name="id" th:value="${reservation.id}">Pickup</button>
-      </form>
+<div th:each="reservation: ${reservations}">
+  <p th:text="${reservation}">here's a reservation</p>
+  <p th:text="|Customer: ${reservation.customer}|">Customer</p>
+  <p th:text="|Car: ${reservation.car}|">Car</p>
+  <p th:text="${reservation.status}"></p>
+  <form  method="post" th:action="@{/admin/reservations/pickup}">
+    <button name="id" th:value="${reservation.id}" type="submit">Pickup</button>
+  </form>
 
-    <form th:action="@{/admin/reservations/dropoff}" method="post">
-      <button type="submit" name="id" th:value="${reservation.id}">Dropoff</button>
-    </form>
-    </p>
-  </div>
+  <form method="post" th:action="@{/admin/reservations/dropoff}">
+    <button name="id" th:value="${reservation.id}" type="submit">Dropoff</button>
+  </form>
+</div>
 
 </body>
 </html>

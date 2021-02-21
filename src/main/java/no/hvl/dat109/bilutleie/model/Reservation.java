@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,5 +52,19 @@ public class Reservation {
         this.customer = customer;
         this.pickup = pickup;
         this.dropoff = dropoff;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", ccn=" + ccn +
+                ", startMileage=" + startMileage +
+                ", endMilage=" + endMilage +
+                ", startDate=" + startDate.format(DateTimeFormatter.ISO_DATE) +
+                ", endDate=" + endDate.format(DateTimeFormatter.ISO_DATE) +
+                ", status=" + status +
+                ", carCategory=" + carCategory +
+                '}';
     }
 }

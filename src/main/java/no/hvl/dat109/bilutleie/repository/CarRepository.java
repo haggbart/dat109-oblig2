@@ -18,4 +18,6 @@ public interface CarRepository extends CrudRepository<Car, Long> {
     List<Car> findAllByCategoryEquals(CarCategory category);
 
     List<Car> findCarsByRentalOffice(RentalOffice office);
+
+    Car findFirstCarByRentalOfficeAndCategoryEquals(RentalOffice office, CarCategory category);
 }

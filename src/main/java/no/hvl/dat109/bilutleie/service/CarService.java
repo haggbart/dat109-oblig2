@@ -30,6 +30,10 @@ public class CarService {
         carRepository.save(car);
     }
 
+    public Car getAvailable(RentalOffice office, CarCategory category) {
+        return carRepository.findFirstCarByRentalOfficeAndCategoryEquals(office, category);
+    }
+
     public List<Car> getCars() {
         return carRepository.findAll();
     }

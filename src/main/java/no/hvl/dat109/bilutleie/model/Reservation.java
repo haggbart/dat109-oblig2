@@ -19,11 +19,14 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private long ccn;
-    private long startMileage;
-    private long endMilage;
+    private Long ccn;
+    private Long startMileage;
+    private Long endMilage;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
+    @Enumerated(value = EnumType.STRING)
+    private ReservationStatus status = ReservationStatus.RESERVED;
 
     @Enumerated(value = EnumType.STRING)
     private CarCategory carCategory;

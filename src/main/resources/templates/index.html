@@ -11,24 +11,24 @@
       <div class="col-3">Tid innlevering</div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-3">
         <span></span>
         <select aria-label="Velg utleveringssted" class="form-select" required th:field="*{pickup}">
           <option th:each="office : ${offices}" th:text="${office.address.city}" th:value="${office.id}" value="id">Office
           </option>
         </select>
       </div>
-      <div class="col">
+      <div class="col-3">
         <span></span>
         <input class="form-control" id="startdate" type="text" th:field="*{startDate}" autocomplete="off">
         <div class="alert alert-warning" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
       </div>
-      <div class="col">
+      <div class="col-3">
         <span></span>
         <input class="form-control" id="enddate" type="text" th:field="*{endDate}" autocomplete="off">
         <div class="alert alert-warning" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
       </div>
-      <div class="col align-items-center">
+      <div class="col-3 align-items-center">
         <button class="btn btn-primary" type="submit">Submit</button>
       </div>
     </div>

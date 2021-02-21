@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 public class ReservationDto {
 
-    private long endMilage;
+    private Long endMilage;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 

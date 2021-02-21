@@ -30,11 +30,17 @@ public class Customer {
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(mappedBy="customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Reservation> reservation = new HashSet<>();
 
     public Customer(String forename, Address address) {
         this.forename = forename;
+        this.address = address;
+    }
+
+    public Customer(String forename, String surname, Address address) {
+        this.forename = forename;
+        this.surname = surname;
         this.address = address;
     }
 

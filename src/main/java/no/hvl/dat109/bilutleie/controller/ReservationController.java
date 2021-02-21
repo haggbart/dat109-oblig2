@@ -9,6 +9,7 @@ import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +49,8 @@ public class ReservationController {
                                      BindingResult bindingResult,
                                      Model model,
                                      HttpSession session) {
-        if (bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors() || !validDates(locationTime, bindingResult)) {
             System.out.println("FAAAAAAAAAAIL");
             model.addAttribute("offices", officeService.getOffices());
             return "index";
@@ -66,5 +68,14 @@ public class ReservationController {
 
         session.setAttribute("locationTime", locationTime);
         return "redirect:/reservation/offerselect";
+    }
+
+    private boolean validDates(ReservationForLocationTimeDto locationTime, BindingResult bindingResult) {
+        if (locationTime.getStartDate().isBefore(locationTime.getEndDate())) return true;
+        bindingResult.addError(new FieldError(
+                "locationTime",
+                "endDate",
+                "Leveringstid må være etter utlevering"));
+        return false;
     }
 }

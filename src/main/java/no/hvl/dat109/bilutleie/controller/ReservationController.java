@@ -68,7 +68,7 @@ public class ReservationController {
         Integer mileage = Integer.valueOf(request.getParameter("endMileage"));
         log.debug("new mileage = {}", mileage);
 
-        carService.updateMileage(reservation, mileage);
+        Integer distance = carService.updateMileage(reservation, mileage);
 
         reservationService.carReturn(reservation);
 
@@ -76,6 +76,7 @@ public class ReservationController {
 
         var paymentDue = reservationService.makeReceipt(reservation);
 
+        model.addAttribute("distance", distance);
         model.addAttribute("paymentDue", paymentDue);
         model.addAttribute("reservation", reservation);
         return "admin/receipt";

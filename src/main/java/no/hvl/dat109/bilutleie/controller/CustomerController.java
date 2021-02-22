@@ -39,14 +39,10 @@ public class CustomerController {
 
         Customer customer = customerService.createCustomer(customerDetails);
         log.debug("Customer: {}", customer);
-
         var reservationDto = (ReservationDto) session.getAttribute("reservation");
         Reservation reservation = reservationService.createReservation(reservationDto);
-
         customer = customerService.save(customer);
-
         reservation.setCustomer(customer);
-
         reservationService.save(reservation);
 
         return "finish";

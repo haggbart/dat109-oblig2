@@ -40,19 +40,19 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <label class="form-label" for="forename">Fornavn</label>
-              <input class="form-control" id="forename" placeholder="" required th:field="*{forename}" type="text"
+              <input th:classappend="${#fields.hasErrors('forename')} ? 'is-invalid' : ''" class="form-control" id="forename" placeholder="" required th:field="*{forename}" type="text"
                      value="">
               <div class="invalid-feedback">
-                Valid first name is required.
+                Fyll inn fornavn.
               </div>
             </div>
 
             <div class="col-sm-6">
               <label class="form-label" for="surname">Etternavn</label>
-              <input class="form-control" id="surname" placeholder="" required th:field="*{surname}" type="text"
+              <input th:classappend="${#fields.hasErrors('surname')} ? 'is-invalid' : ''" class="form-control" id="surname" placeholder="" required th:field="*{surname}" type="text"
                      value="">
               <div class="invalid-feedback">
-                Valid last name is required.
+                Fyll inn etternavn.
               </div>
             </div>
 
@@ -67,27 +67,27 @@
 
             <div class="col-12">
               <label class="form-label" for="street">Adresse</label>
-              <input class="form-control" id="street" placeholder="Nobels gate 32" required th:field="*{street}"
+              <input th:classappend="${#fields.hasErrors('street')} ? 'is-invalid' : ''" class="form-control" id="street" placeholder="Nobels gate 32" required th:field="*{street}"
                      type="text">
               <div class="invalid-feedback">
-                Please enter your shipping address.
+                Vennligst oppgi en en gyldig adresse.
               </div>
             </div>
 
 
             <div class="col-md-6">
               <label class="form-label" for="zip">Postkode</label>
-              <input class="form-control" id="zip" placeholder="1337" required th:field="*{zip}" type="text">
+              <input th:classappend="${#fields.hasErrors('zip')} ? 'is-invalid' : ''" class="form-control" id="zip" placeholder="1337" required th:field="*{zip}" type="text">
               <div class="invalid-feedback">
-                Zip code required.
+                Postkode er påkrevd.
               </div>
             </div>
 
             <div class="col-6">
               <label class="form-label" for="city">By</label>
-              <input class="form-control" id="city" placeholder="Førde" required th:field="*{city}" type="text">
+              <input th:classappend="${#fields.hasErrors('city')} ? 'is-invalid' : ''" class="form-control" id="city" placeholder="Førde" required th:field="*{city}" type="text">
               <div class="invalid-feedback">
-                Please select a valid country.
+                Fyll inn by.
               </div>
             </div>
           </div>

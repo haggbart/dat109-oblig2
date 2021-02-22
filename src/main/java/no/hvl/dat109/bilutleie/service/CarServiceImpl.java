@@ -45,6 +45,19 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Offer> availableCategories(RentalOffice office, LocalDateTime start, LocalDateTime end) {
+        int[] categoryCount = overLappingCategories(office, start, end);
+
+        List<Offer> availableCategories = new ArrayList<>();
+        for (int i = 0; i < categoryCount.length; i++) {
+            if (categoryCount[i] > 0) {
+                availableCategories.add(new Offer(CarCategory.values()[i]));
+            }
+        }
+        log.debug("Available categories: {}", availableCategories);
+        return availableCategories;
+    }
+
+    private int[] overLappingCategories(RentalOffice office, LocalDateTime start, LocalDateTime end) {
         int[] categoryCount = new int[CarCategory.values().length];
         for (var car : office.getCars()) {
             categoryCount[car.getCategory().ordinal()]++;
@@ -55,14 +68,6 @@ public class CarServiceImpl implements CarService {
             categoryCount[reservation.getCarCategory().ordinal()]--;
         }
         log.debug("Available cars for each category: {}", Arrays.toString(categoryCount));
-
-        List<Offer> availableCategories = new ArrayList<>();
-        for (int i = 0; i < categoryCount.length; i++) {
-            if (categoryCount[i] > 0) {
-                availableCategories.add(new Offer(CarCategory.values()[i]));
-            }
-        }
-        log.debug("Available categories: {}", availableCategories);
-        return availableCategories;
+        return categoryCount;
     }
 }

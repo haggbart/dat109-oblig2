@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CarService {
+
     void save(Car car);
 
     Car getAvailable(RentalOffice office, CarCategory category);

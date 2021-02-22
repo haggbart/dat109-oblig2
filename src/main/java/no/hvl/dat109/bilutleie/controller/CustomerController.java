@@ -26,12 +26,10 @@ import javax.validation.Valid;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final ModelMapper modelMapper;
     private final ReservationService reservationService;
 
-    public CustomerController(CustomerService customerService, ModelMapper modelMapper, ReservationService reservationService) {
+    public CustomerController(CustomerService customerService, ReservationService reservationService) {
         this.customerService = customerService;
-        this.modelMapper = modelMapper;
         this.reservationService = reservationService;
     }
 
@@ -48,7 +46,7 @@ public class CustomerController {
         log.debug("Customer: {}", customer);
 
         var reservationDto = (ReservationDto) session.getAttribute("reservation");
-        Reservation reservation = reservationService.createReservation(reservationDto, modelMapper);
+        Reservation reservation = reservationService.createReservation(reservationDto);
 
         customer = customerService.save(customer);
 
@@ -63,24 +61,4 @@ public class CustomerController {
     public String test() {
         return "finish";
     }
-
-    /*
-        @PostMapping("/locationtime")
-    public String locationTimeSubmit(@Valid @ModelAttribute("locationTime") ReservationForLocationTimeDto locationTime,
-                                     BindingResult bindingResult, Model model, HttpSession session) {
-
-        if (bindingResult.hasErrors() || !validDates(locationTime, bindingResult)) {
-            model.addAttribute("offices", officeService.getOffices());
-            return "index";
-        }
-
-        ReservationDto reservation = new ReservationDto();
-        mapper.map(locationTime, reservation);
-
-        session.setAttribute("reservation", reservation);
-        session.setAttribute("locationTime", locationTime);
-        return "redirect:/reservation/offerselect";
-    }
-     */
-
 }

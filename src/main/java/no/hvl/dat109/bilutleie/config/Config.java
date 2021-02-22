@@ -19,5 +19,4 @@ public class Config {
                 .setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper;
     }
-
 }

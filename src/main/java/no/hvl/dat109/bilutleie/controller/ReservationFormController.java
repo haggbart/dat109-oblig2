@@ -8,7 +8,6 @@ import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Offer;
 import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
-import no.hvl.dat109.bilutleie.service.ReservationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +28,7 @@ public class ReservationFormController {
     private final RentalOfficeService officeService;
     private final ModelMapper mapper;
 
-    public ReservationFormController(CarService carService, RentalOfficeService officeService, ReservationService reservationService, ModelMapper mapper) {
+    public ReservationFormController(CarService carService, RentalOfficeService officeService, ModelMapper mapper) {
         this.carService = carService;
         this.officeService = officeService;
         this.mapper = mapper;
@@ -60,7 +59,6 @@ public class ReservationFormController {
         var reservation = (ReservationDto) session.getAttribute("reservation");
         log.debug("Reservation: {}", reservation);
 
-
         var offers = carService.availableCategories(reservation.getPickup(),
                 reservation.getStartDate(), reservation.getEndDate());
 
@@ -74,16 +72,15 @@ public class ReservationFormController {
     public String selectOffer(@RequestParam String category, HttpSession session) {
         var reservation = (ReservationDto) session.getAttribute("reservation");
         reservation.setCarCategory(CarCategory.valueOf(category));
-        session.setAttribute("offer", new Offer(CarCategory.valueOf(category), reservation.days()));
         return "redirect:/reservation/details";
     }
 
     @GetMapping("/details")
     public String detailsForm(Model model, HttpSession session) {
         var reservation = (ReservationDto) session.getAttribute("reservation");
-        var customerDetails = new CustomerForDetailsDto();
-        customerDetails.setOffer(new Offer(reservation.getCarCategory(), reservation.days()));
-        model.addAttribute("customerDetails", customerDetails);
+        model.addAttribute("reservation", session.getAttribute("reservation"));
+        model.addAttribute("customerDetails", new CustomerForDetailsDto());
+        model.addAttribute("offer", new Offer(reservation.getCarCategory()));
         return "details";
     }
 

@@ -3,7 +3,6 @@ package no.hvl.dat109.bilutleie.service;
 import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.model.RentalOffice;
 import no.hvl.dat109.bilutleie.repository.RentalOfficeRepository;
-import no.hvl.dat109.bilutleie.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +12,9 @@ import java.util.List;
 public class RentalOfficeServiceImpl implements RentalOfficeService {
 
     private final RentalOfficeRepository officeRepository;
-    private final ReservationRepository reservationRepository;
 
-
-    public RentalOfficeServiceImpl(RentalOfficeRepository officeRepository, ReservationRepository reservationRepository) {
+    public RentalOfficeServiceImpl(RentalOfficeRepository officeRepository) {
         this.officeRepository = officeRepository;
-        this.reservationRepository = reservationRepository;
     }
 
     @Override

@@ -1,24 +1,14 @@
 package no.hvl.dat109.bilutleie.controller;
 
-
 import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.model.Car;
-import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Reservation;
-import no.hvl.dat109.bilutleie.model.ReservationStatus;
 import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.ReservationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.net.http.HttpRequest;
-import java.time.Duration;
-import java.time.Period;
-
 
 @Slf4j
 @RequestMapping("/admin/reservations")
@@ -81,5 +71,4 @@ public class ReservationController {
         model.addAttribute("reservation", reservation);
         return "admin/receipt";
     }
-
 }

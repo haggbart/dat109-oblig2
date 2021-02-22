@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -34,7 +33,7 @@ public class CustomerController {
     public String createCustomer(@Valid @ModelAttribute("customerDetails") CustomerForDetailsDto customerDetails, BindingResult bindingResult, HttpSession session) {
 
         if (bindingResult.hasErrors()) {
-            log.debug("FAAAAAILED validation of customerDetails");
+            log.debug("failed validation of customerDetails");
             return "details";
         }
 

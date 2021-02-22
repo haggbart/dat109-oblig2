@@ -41,7 +41,6 @@ public class CustomerServiceImpl implements CustomerService {
         var customer = new Customer();
         mapper.map(customerDto, customer);
         customer.setAddress(new Address(customerDto.getStreet(), customerDto.getZip(), customerDto.getCity()));
-        customer = save(customer);
-        return customer;
+        return save(customer);
     }
 }

@@ -2,65 +2,24 @@ package no.hvl.dat109.bilutleie.service;
 
 import no.hvl.dat109.bilutleie.dto.ReservationDto;
 import no.hvl.dat109.bilutleie.model.Car;
-import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Reservation;
-import no.hvl.dat109.bilutleie.model.ReservationStatus;
-import no.hvl.dat109.bilutleie.repository.ReservationRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.util.List;
 
-@Service
-public class ReservationService {
+public interface ReservationService {
+    Reservation save(Reservation reservation);
 
-    private final ReservationRepository reservationRepository;
-    private final ModelMapper mapper;
+    List<Reservation> getReservations();
 
-    public ReservationService(ReservationRepository reservationRepository, ModelMapper mapper) {
-        this.reservationRepository = reservationRepository;
-        this.mapper = mapper;
-    }
+    Reservation getReservation(Long id);
 
-    public Reservation save(Reservation reservation) {
-        return reservationRepository.save(reservation);
-    }
+    Reservation createReservation(ReservationDto reservationDto);
 
-    public List<Reservation> getReservations() {
-        return reservationRepository.findAll();
-    }
+    void rentOutCar(Reservation reservation, Car car);
 
-    public Reservation getReservation(Long id) {
-        return reservationRepository.findById(id).orElse(null);
-    }
+    void carReturn(Reservation reservation);
 
-    public Reservation createReservation(ReservationDto reservationDto) {
-        Reservation reservation = new Reservation();
-        mapper.map(reservationDto, reservation);
-        return reservation;
-    }
+    double makeReceipt(Reservation reservation);
 
-    public void rentOutCar(Reservation reservation, Car car) {
-        reservation.setCar(car);
-        reservation.setStartMileage(car.getMileage());
-        reservation.setStatus(ReservationStatus.FETCHED);
-    }
-
-    public void carReturn(Reservation reservation) {
-        reservation.setEndMilage(reservation.getCar().getMileage());
-        reservation.setStatus(ReservationStatus.RETURNED);
-    }
-
-    public double makeReceipt(Reservation reservation) {
-        var days = Duration.between(reservation.getStartDate(), reservation.getEndDate()).getSeconds() / (3600*24.0);
-
-        var price = CarCategory.costPerDay(reservation.getCarCategory());
-
-        return days * price;
-    }
-
-    public long getCcn(Reservation reservation) {
-        return reservation.getCcn();
-    }
+    long getCcn(Reservation reservation);
 }

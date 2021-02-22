@@ -10,12 +10,12 @@ import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.ReservationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.http.HttpRequest;
 import java.time.Duration;
 import java.time.Period;
 
@@ -42,15 +42,12 @@ public class ReservationController {
 
     // reserved, fetched, returned
     @PostMapping("/pickup")
-    public String pickUp(@RequestParam Long id) {
-        log.debug("id = {}", id);
+    public String pickUp(@RequestParam Long id, HttpServletRequest request) {
 
+        log.debug("id = {}", id);
         Reservation reservation = reservationService.getReservation(id);
 
-        // TODO credit card number from input
-        Long ccn = 1234L;
-        log.debug("ccn = {}", ccn);
-        reservation.setCcn(ccn);
+        reservationService.addCreditCardNumber(request, reservation);
 
         // TODO: Get the one actually available
         Car car = carService.getAvailable(reservation);
@@ -63,12 +60,16 @@ public class ReservationController {
     }
 
     @PostMapping("/dropoff")
-    public String dropOff(@RequestParam Long id, Model model) {
+    public String dropOff(@RequestParam Long id, Model model, HttpServletRequest request) {
         log.debug("id = {}", id);
 
         Reservation reservation = reservationService.getReservation(id);
 
-        // TODO admin må oppgi input for endMilage
+        Integer mileage = Integer.valueOf(request.getParameter("endMileage"));
+        log.debug("new mileage = {}", mileage);
+
+        carService.updateMileage(reservation, mileage);
+
         reservationService.carReturn(reservation);
 
         reservationService.save(reservation);

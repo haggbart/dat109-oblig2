@@ -4,6 +4,7 @@ import no.hvl.dat109.bilutleie.dto.ReservationDto;
 import no.hvl.dat109.bilutleie.model.Car;
 import no.hvl.dat109.bilutleie.model.Reservation;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ReservationService {
@@ -16,6 +17,8 @@ public interface ReservationService {
     Reservation createReservation(ReservationDto reservationDto);
 
     void rentOutCar(Reservation reservation, Car car);
+
+    void addCreditCardNumber(HttpServletRequest request, Reservation reservation);
 
     void carReturn(Reservation reservation);
 

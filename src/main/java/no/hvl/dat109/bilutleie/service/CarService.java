@@ -16,4 +16,6 @@ public interface CarService {
     List<Car> getCars();
 
     List<Offer> availableCategories(RentalOffice office, LocalDateTime start, LocalDateTime end);
+
+    Integer updateMileage(Reservation reservation, Integer mileage);
 }

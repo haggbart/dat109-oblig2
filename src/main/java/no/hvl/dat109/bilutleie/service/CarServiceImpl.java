@@ -70,4 +70,13 @@ public class CarServiceImpl implements CarService {
         log.debug("Available cars for each category: {}", Arrays.toString(categoryCount));
         return categoryCount;
     }
+
+    public Integer updateMileage(Reservation reservation, Integer mileage) {
+
+        Car car = reservation.getCar();
+        car.setMileage(mileage);
+        save(car);
+
+        return 0;
+    }
 }

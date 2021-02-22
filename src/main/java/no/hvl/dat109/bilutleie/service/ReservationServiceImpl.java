@@ -9,6 +9,7 @@ import no.hvl.dat109.bilutleie.repository.ReservationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
 import java.util.List;
 
@@ -50,6 +51,13 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setCar(car);
         reservation.setStartMileage(car.getMileage());
         reservation.setStatus(ReservationStatus.FETCHED);
+    }
+
+    @Override
+    public void addCreditCardNumber(HttpServletRequest request, Reservation reservation) {
+        String ccnReqAttribute = request.getParameter("ccn");
+        Long creditCard = Long.valueOf(ccnReqAttribute);
+        reservation.setCcn(creditCard);
     }
 
     @Override

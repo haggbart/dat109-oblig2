@@ -1,6 +1,7 @@
 package no.hvl.dat109.bilutleie.dto;
 
 import lombok.Data;
+import no.hvl.dat109.bilutleie.model.Offer;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -26,4 +27,6 @@ public class CustomerForDetailsDto {
 
     @NotNull
     private Integer zip;
+
+    private Offer offer;
 }

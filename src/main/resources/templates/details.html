@@ -16,12 +16,12 @@
         </h4>
 
         <div class="col-4">
-          <img alt="" th:src="|@{/img/categories/}${offer.category}.png|" width="300px">
+          <img alt="" th:src="|@{/img/categories/}${session.offer.category}.png|" width="300px">
         </div>
 
         <div class="col m-2">
-          <h4 th:text="${offer.description()}"></h4>
-          <span><b th:text="|eller lignende (gruppe ${offer.category})|">eller lignende</b></span>
+          <h4 th:text="${session.offer.description()}"></h4>
+          <span><b th:text="|eller lignende (gruppe ${session.offer.category})|">eller lignende</b></span>
           <p class="mt-4">Dette tilbudet inkluderer:<br>
             <span class="text-muted fw-light"><i class="fas fa-check text-warning"></i> Vinterdekk inkludert.</span>
           </p>
@@ -30,11 +30,11 @@
         <hr class="m-4">
 
         <div class="col m-2 mb-4">
-          <span class="fs-6" th:text="|NOK ${offer.costPerDay()}|">NOK 501.62</span> <span
+          <span class="fs-6" th:text="|NOK ${session.offer.costPerDay()}|">NOK 501.62</span> <span
           class="fs-6">pr dag</span><br>
         </div>
       </div>
-      
+
       <div class="col-md-7 col-lg-8 pe-5">
         <form method="post" novalidate th:action="@{/customer}" th:object="${customerDetails}">
           <div class="row g-3">
@@ -96,11 +96,11 @@
             <div class="row">
               <div class="col-6 p-2">
                 <span class="fs-2 ms-4">Din samlede pris:</span><br>
-                <span class="fs-6 ms-4" th:text="|Leieperiode: ${reservation.days()} Dager|">Leieperiode</span>
+                <span class="fs-6 ms-4" th:text="|Leieperiode: ${session.offer.days} Dager|">Leieperiode</span>
               </div>
               <div class="col-6 p-2 d-flex">
               <span class="fs-2 ms-auto pe-4"
-                    th:text="|NOK ${reservation.days() * offer.costPerDay()}|">Totalt: NOK 35113,73</span>
+                    th:text="|NOK ${session.offer.days * session.offer.costPerDay()}|">Totalt: NOK 35113,73</span>
               </div>
             </div>
 

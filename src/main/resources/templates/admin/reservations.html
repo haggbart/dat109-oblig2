@@ -15,11 +15,20 @@
   <p th:text="|Customer: ${reservation.customer}|">Customer</p>
   <p th:text="|Car: ${reservation.car}|">Car</p>
   <p th:text="${reservation.status}"></p>
-  <form  method="post" th:action="@{/admin/reservations/pickup}">
+
+  <form  method="post" th:action="@{/admin/reservations/pickup}" >
+    <input type="text" id="ccn" name="ccn" required />
+      <div class="invalid-feedback">
+        Vennligst oppgi kundens kredittkortnumber.
+      </div>
     <button name="id" th:value="${reservation.id}" type="submit">Pickup</button>
   </form>
 
   <form method="post" th:action="@{/admin/reservations/dropoff}">
+    <input type="text" id="endMileage" name="endMileage" required />
+    <div class="invalid-feedback">
+      Vennligst oppgi kilometerstanden på bilen.
+    </div>
     <button name="id" th:value="${reservation.id}" type="submit">Dropoff</button>
   </form>
 </div>

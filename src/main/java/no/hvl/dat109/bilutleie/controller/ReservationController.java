@@ -41,10 +41,7 @@ public class ReservationController {
 
         // TODO: Get the one actually available
         Car car = carService.getAvailable(reservation);
-
         reservationService.rentOutCar(reservation, car);
-
-        reservationService.save(reservation);
 
         return "redirect:/admin/reservations";
     }
@@ -60,8 +57,6 @@ public class ReservationController {
         Integer distance = carService.updateMileage(reservation, endMileage);
 
         reservationService.carReturn(reservation);
-
-        reservationService.save(reservation);
 
         var paymentDue = reservationService.makeReceipt(reservation);
 

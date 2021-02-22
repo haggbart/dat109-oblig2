@@ -52,13 +52,12 @@ public class ReservationServiceImpl implements ReservationService {
         return save(reservation);
     }
 
-
-
     @Override
     public void rentOutCar(Reservation reservation, Car car) {
         reservation.setCar(car);
         reservation.setStartMileage(car.getMileage());
         reservation.setStatus(ReservationStatus.FETCHED);
+        save(reservation);
     }
 
     @Override
@@ -66,12 +65,14 @@ public class ReservationServiceImpl implements ReservationService {
         String ccnReqAttribute = request.getParameter("ccn");
         Long creditCard = Long.valueOf(ccnReqAttribute);
         reservation.setCcn(creditCard);
+        save(reservation);
     }
 
     @Override
     public void carReturn(Reservation reservation) {
         reservation.setEndMilage(reservation.getCar().getMileage());
         reservation.setStatus(ReservationStatus.RETURNED);
+        save(reservation);
     }
 
     @Override

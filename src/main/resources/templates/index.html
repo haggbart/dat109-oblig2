@@ -3,37 +3,52 @@
 <body>
 <th:block th:fragment="content">
 
-<div class="container">
-  <form action="#" method="post" th:action="@{/reservation/locationtime}" th:object="${locationTime}">
-    <div class="row">
-      <div class="col-3">Utlevering & innlevering</div>
-      <div class="col-3">Tid utlevering</div>
-      <div class="col-3">Tid innlevering</div>
-    </div>
-    <div class="row">
-      <div class="col-3">
-        <span></span>
-        <select aria-label="Velg utleveringssted" class="form-select" required th:field="*{pickup}">
-          <option th:each="office : ${offices}" th:text="${office.address.city}" th:value="${office.id}" value="id">Office
-          </option>
-        </select>
+  <div class="container">
+    <form action="#" method="post" th:action="@{/reservation/locationtime}" th:object="${locationTime}">
+      <div class="row">
+        <div class="col-3" id="pickupdropoffcontent">Utlevering & innlevering</div>
+        <div class="col-3">Tid utlevering</div>
+        <div class="col-5">Tid innlevering</div>
+        <div class="row">
+          <div class="col-3">
+            <span></span>
+            <select aria-label="Velg utleveringssted" class="form-select" required th:field="*{pickup}">
+              <option th:each="office : ${offices}" th:text="${office.address.city}" th:value="${office.id}" value="id">
+                Office
+              </option>
+            </select>
+          </div>
+
+          <div class="col-3">
+            <span></span>
+            <input autocomplete="off" class="form-control" id="startdate" th:field="*{startDate}" type="text">
+            <div class="alert alert-warning" th:errors="*{startDate}" th:if="${#fields.hasErrors('startDate')}"></div>
+          </div>
+          <div class="col-3">
+            <span></span>
+            <input autocomplete="off" class="form-control" id="enddate" th:field="*{endDate}" type="text">
+            <div class="alert alert-warning" th:errors="*{endDate}" th:if="${#fields.hasErrors('endDate')}"></div>
+          </div>
+          <div class="col-3 align-items-center">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+          <div class="col-3 mt-4">
+            <span>Levere et annet sted?</span>
+            <input id='anothercity'
+                   name='anothercity'
+                   type="checkbox">
+              <select aria-label="Velg utleveringssted" class="form-select" id="dropoff" required th:field="*{dropoff}">
+                <option value="0"></option>
+                <option th:each="office : ${offices}" th:text="${office.address.city}" th:value="${office.id}"
+                        value="id">
+                  Office
+                </option>
+              </select>
+          </div>
+        </div>
       </div>
-      <div class="col-3">
-        <span></span>
-        <input class="form-control" id="startdate" type="text" th:field="*{startDate}" autocomplete="off">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
-      </div>
-      <div class="col-3">
-        <span></span>
-        <input class="form-control" id="enddate" type="text" th:field="*{endDate}" autocomplete="off">
-        <div class="alert alert-warning" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
-      </div>
-      <div class="col-3 align-items-center">
-        <button class="btn btn-primary" type="submit">Submit</button>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
 </th:block>
 </body>

@@ -16,9 +16,11 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final ModelMapper mapper;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, ModelMapper mapper) {
         this.reservationRepository = reservationRepository;
+        this.mapper = mapper;
     }
 
     public Reservation save(Reservation reservation) {
@@ -33,14 +35,9 @@ public class ReservationService {
         return reservationRepository.findById(id).orElse(null);
     }
 
-    public Reservation createReservation(ReservationDto reservationDto, ModelMapper modelMapper) {
+    public Reservation createReservation(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
-
-        modelMapper.map(reservationDto, reservation);
-
-        // TODO better fix. does not work without this!!
-        reservation.setCar(null);
-
+        mapper.map(reservationDto, reservation);
         return reservation;
     }
 

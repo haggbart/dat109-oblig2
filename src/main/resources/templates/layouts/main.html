@@ -11,8 +11,9 @@
 </div>
 <th:block th:replace="fragments/endscripts :: #endscripts"/>
 
+
 <!--TODO seperate main from the rest-->
-<script>
+<script th:if="${title == 'Hjem'}">
     const FORMAT = 'd/m/Y H:i';
 
     jQuery('#startdate').datetimepicker({
@@ -27,6 +28,23 @@
         defaultDate: '+1970/01/02',
         // step: 30
     });
+
+
+    const dropoff = document.getElementById('dropoff');
+    const anothercity = document.getElementById('anothercity');
+    const pickupdropofftext = document.getElementById('pickupdropoffcontent');
+    dropoff.disabled = true;
+
+    console.log(dropoff.value);
+
+    anothercity.addEventListener('change', e => {
+        dropoff.disabled = !anothercity.checked;
+        jQuery("#dropoff").val(0);
+        pickupdropofftext.innerText = !anothercity.checked ? 'Utlevering & innlevering' : 'Utlevering';
+    });
+
 </script>
+
+
 </body>
 </html>

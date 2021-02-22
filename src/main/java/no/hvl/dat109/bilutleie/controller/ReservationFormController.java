@@ -55,6 +55,7 @@ public class ReservationFormController {
     public String offerSelectForm(HttpSession session, Model model) {
 
         var reservation = (ReservationDto) session.getAttribute("reservation");
+        log.debug("Reservation: {}", reservation);
         model.addAttribute("categories", carService.availableCategories(reservation.getPickup(),
                 reservation.getStartDate(), reservation.getEndDate()));
         model.addAttribute("city", reservation.getPickup().getAddress().getCity());

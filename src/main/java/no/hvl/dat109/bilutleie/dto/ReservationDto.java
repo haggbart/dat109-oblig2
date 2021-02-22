@@ -24,6 +24,6 @@ public class ReservationDto {
     private RentalOffice dropoff;
 
     public Long days() {
-        return Duration.between(startDate, endDate).toDays();
+        return Math.max(Duration.between(startDate, endDate).toDays(), 1);
     }
 }

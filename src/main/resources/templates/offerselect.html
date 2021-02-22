@@ -18,7 +18,7 @@
         <h4 th:text="${offer.description()}"></h4>
         <span><b th:text="|eller lignende (gruppe ${offer.category})|">eller lignende</b></span>
         <p class="mt-4">Dette tilbudet inkluderer:<br>
-          <span class="text-muted"><i class="fas fa-check text-warning"></i> Vinterdekk inkludert.</span>
+          <span class="text-muted fw-light"><i class="fas fa-check text-warning"></i> Vinterdekk inkludert.</span>
         </p>
 
       </div>
@@ -28,8 +28,8 @@
           <div class="row">
             <div class="col-7">
               <span class="main-heading">GRATIS KANSELLERING</span>
-              <h5 th:text="|NOK ${offer.costPerDay()} pr dag|">NOK 501.62 pr dag</h5>
-              <span class="text-muted" th:text="|Totalt: NOK ${reservation.days() * offer.costPerDay()}|">Totalt: NOK 35113,73</span>
+              <span class="fs-4" th:text="|NOK ${offer.costPerDay()}|">NOK 501.62</span> <span class="fs-6">pr dag</span><br>
+              <span class="text-muted fw-light" th:text="|Totalt: NOK ${reservation.days() * offer.costPerDay()}|">Totalt: NOK 35113,73</span>
             </div>
             <div class="col-5">
               <button class="btn btn-warning" name="category" th:value="${offer.category}" type="submit">

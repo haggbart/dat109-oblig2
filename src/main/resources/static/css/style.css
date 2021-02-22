@@ -43,6 +43,7 @@ body {
 
 .btn-warning {
     background-color: var(--mainOrange) !important;
+    border-radius: 0;
 }
 
 .text-warning {

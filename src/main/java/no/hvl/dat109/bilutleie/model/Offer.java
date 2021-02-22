@@ -6,6 +6,7 @@ import lombok.Data;
 public class Offer {
 
     private CarCategory category;
+    private Long days;
 
     public int costPerDay() {
         return CarCategory.costPerDay(this.category);
@@ -17,5 +18,10 @@ public class Offer {
 
     public Offer(CarCategory category) {
         this.category = category;
+    }
+
+    public Offer(CarCategory category, Long days) {
+        this.category = category;
+        this.days = days;
     }
 }

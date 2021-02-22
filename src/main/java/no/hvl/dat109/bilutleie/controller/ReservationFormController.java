@@ -67,9 +67,6 @@ public class ReservationFormController {
         model.addAttribute("offers", offers);
         model.addAttribute("reservation", reservation);
 
-//        model.addAttribute("city", reservation.getPickup().getAddress().getCity());
-//        model.addAttribute("cars", carService.getCarsByOffice(reservation.getPickup()));
-
         return "offerselect";
     }
 
@@ -77,15 +74,16 @@ public class ReservationFormController {
     public String selectOffer(@RequestParam String category, HttpSession session) {
         var reservation = (ReservationDto) session.getAttribute("reservation");
         reservation.setCarCategory(CarCategory.valueOf(category));
+        session.setAttribute("offer", new Offer(CarCategory.valueOf(category), reservation.days()));
         return "redirect:/reservation/details";
     }
 
     @GetMapping("/details")
     public String detailsForm(Model model, HttpSession session) {
         var reservation = (ReservationDto) session.getAttribute("reservation");
-        model.addAttribute("reservation", (ReservationDto) session.getAttribute("reservation"));
-        model.addAttribute("customerDetails", new CustomerForDetailsDto());
-        model.addAttribute("offer", new Offer(reservation.getCarCategory()));
+        var customerDetails = new CustomerForDetailsDto();
+        customerDetails.setOffer(new Offer(reservation.getCarCategory(), reservation.days()));
+        model.addAttribute("customerDetails", customerDetails);
         return "details";
     }
 

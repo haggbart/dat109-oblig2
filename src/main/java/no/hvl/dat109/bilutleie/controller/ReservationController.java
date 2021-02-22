@@ -44,8 +44,6 @@ public class ReservationController {
 
         reservationService.rentOutCar(reservation, car);
 
-        reservationService.save(reservation);
-
         return "redirect:/admin/reservations";
     }
 

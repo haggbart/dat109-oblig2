@@ -3,178 +3,116 @@
 <body>
 <th:block th:fragment="content">
 
-  <div class="container">
-    <p th:text="${reservation}"></p>
+  <div class="container p-4">
+    <!--    <p th:text="${reservation}"></p>-->
 
     <h2>Førerdetailjer</h2>
 
 
-  <div class="row g-3">
-    <div class="col-md-5 col-lg-4 order-md-last">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Your cart</span>
-        <span class="badge bg-secondary rounded-pill">3</span>
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$12</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$8</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Third item</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-            <small>EXAMPLECODE</small>
-          </div>
-          <span class="text-success">−$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$20</strong>
-        </li>
-      </ul>
+    <div class="row g-3">
+      <div class="col-md-5 col-lg-4 order-md-last offer-summary">
+        <h4 class="d-flex justify-content-between align-items-center mb-3 p-2 pt-4">
+          <span>Ditt valg</span>
+        </h4>
 
-      <form class="card p-2">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code">
-          <button type="submit" class="btn btn-secondary">Redeem</button>
+        <div class="col-4">
+          <img alt="" th:src="|@{/img/categories/}${offer.category}.png|" width="300px">
         </div>
-      </form>
+
+        <div class="col m-2">
+          <h4 th:text="${offer.description()}"></h4>
+          <span><b th:text="|eller lignende (gruppe ${offer.category})|">eller lignende</b></span>
+          <p class="mt-4">Dette tilbudet inkluderer:<br>
+            <span class="text-muted fw-light"><i class="fas fa-check text-warning"></i> Vinterdekk inkludert.</span>
+          </p>
+        </div>
+
+        <hr class="m-4">
+
+        <div class="col m-2 mb-4">
+          <span class="fs-6" th:text="|NOK ${offer.costPerDay()}|">NOK 501.62</span> <span
+          class="fs-6">pr dag</span><br>
+        </div>
+      </div>
+      
+      <div class="col-md-7 col-lg-8 pe-5">
+        <form method="post" novalidate th:action="@{/customer}" th:object="${customerDetails}">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label class="form-label" for="forename">Fornavn</label>
+              <input class="form-control" id="forename" placeholder="" required th:field="*{forename}" type="text"
+                     value="">
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label" for="surname">Etternavn</label>
+              <input class="form-control" id="surname" placeholder="" required th:field="*{surname}" type="text"
+                     value="">
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <label class="form-label" for="email">Email <span class="text-muted">(Optional)</span></label>
+              <input class="form-control" id="email" placeholder="you@example.com" type="email">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="street">Adresse</label>
+              <input class="form-control" id="street" placeholder="Nobels gate 32" required th:field="*{street}"
+                     type="text">
+              <div class="invalid-feedback">
+                Please enter your shipping address.
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <label class="form-label" for="zip">Postkode</label>
+              <input class="form-control" id="zip" placeholder="1337" required th:field="*{zip}" type="text">
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label" for="city">By</label>
+              <input class="form-control" id="city" placeholder="Førde" required th:field="*{city}" type="text">
+              <div class="invalid-feedback">
+                Please select a valid country.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 offer-summary my-4">
+            <div class="row">
+              <div class="col-6 p-2">
+                <span class="fs-2 ms-4">Din samlede pris:</span><br>
+                <span class="fs-6 ms-4" th:text="|Leieperiode: ${reservation.days()} Dager|">Leieperiode</span>
+              </div>
+              <div class="col-6 p-2 d-flex">
+              <span class="fs-2 ms-auto pe-4"
+                    th:text="|NOK ${reservation.days() * offer.costPerDay()}|">Totalt: NOK 35113,73</span>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="w-100 btn btn-warning btn-lg" type="submit">
+            <span class="fw-bold p-1 text-light">FORESPØR KJØRETØY</span>
+          </button>
+        </form>
+      </div>
     </div>
-
-    <div class="col-md-7 col-lg-8">
-      <form th:action="@{/customer}" th:object="${customerDetails}" method="post" novalidate>
-        <div class="row g-3">
-          <div class="col-sm-6">
-            <label for="forename" class="form-label">Fornavn</label>
-            <input type="text" class="form-control" id="forename" placeholder="" value="" th:field="*{forename}" required>
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <label for="surname" class="form-label">Etternavn</label>
-            <input type="text" class="form-control" id="surname" placeholder="" value="" th:field="*{surname}" required>
-            <div class="invalid-feedback">
-              Valid last name is required.
-            </div>
-          </div>
-
-
-          <div class="col-12">
-            <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-            <div class="invalid-feedback">
-              Please enter a valid email address for shipping updates.
-            </div>
-          </div>
-
-          <div class="col-12">
-            <label for="street" class="form-label">Adresse</label>
-            <input type="text" class="form-control" id="street" placeholder="Nobels gate 32" th:field="*{street}" required>
-            <div class="invalid-feedback">
-              Please enter your shipping address.
-            </div>
-          </div>
-
-
-          <div class="col-md-6">
-            <label for="zip" class="form-label">Postkode</label>
-            <input type="text" class="form-control" id="zip" placeholder="1337" th:field="*{zip}"required>
-            <div class="invalid-feedback">
-              Zip code required.
-            </div>
-          </div>
-
-          <div class="col-6">
-            <label for="city" class="form-label">By</label>
-            <input type="text" class="form-control" id="city" placeholder="Førde" th:field="*{city}" required>
-            <div class="invalid-feedback">
-              Please select a valid country.
-            </div>
-          </div>
-
-        </div>
-
-
-        <hr class="my-4">
-
-        <h4 class="mb-3">Payment</h4>
-
-        <div class="my-3">
-          <div class="form-check">
-            <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-            <label class="form-check-label" for="credit">Credit card</label>
-          </div>
-          <div class="form-check">
-            <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-            <label class="form-check-label" for="debit">Debit card</label>
-          </div>
-          <div class="form-check">
-            <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-            <label class="form-check-label" for="paypal">PayPal</label>
-          </div>
-        </div>
-
-        <div class="row gy-3">
-          <div class="col-md-6">
-            <label for="cc-name" class="form-label">Name on card</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" required>
-            <small class="text-muted">Full name as displayed on card</small>
-            <div class="invalid-feedback">
-              Name on card is required
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="cc-number" class="form-label">Credit card number</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required>
-            <div class="invalid-feedback">
-              Credit card number is required
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <label for="cc-expiration" class="form-label">Expiration</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-            <div class="invalid-feedback">
-              Expiration date required
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <label for="cc-cvv" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-            <div class="invalid-feedback">
-              Security code required
-            </div>
-          </div>
-        </div>
-
-        <hr class="my-4">
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-      </form>
-    </div>
-  </div>
-  </main>
+    </main>
   </div>
 </th:block>
 </body>

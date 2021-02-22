@@ -17,7 +17,7 @@ public enum CarCategory {
             case A -> "Ford Fiesta";
             case B -> "Ford Focus";
             case C -> "Toyota RAV 4x4";
-            case D -> "VW Transporter 4x4";
+            case D -> "Mercedes-Benz Sprinter";
         };
     }
 }

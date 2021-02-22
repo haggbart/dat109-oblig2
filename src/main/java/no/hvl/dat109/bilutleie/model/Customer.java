@@ -31,7 +31,7 @@ public class Customer {
     private Address address;
 
     @OneToMany(mappedBy="customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Reservation> reservation = new HashSet<>();
+    private Set<Reservation> reservations = new HashSet<>();
 
     public Customer(String forename, String surname, Address address) {
         this.forename = forename;
@@ -44,6 +44,10 @@ public class Customer {
         this.surname = surname;
         this.email = email;
         this.address = address;
+    }
+
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
     }
 
     @Override

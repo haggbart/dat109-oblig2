@@ -5,6 +5,7 @@ import no.hvl.dat109.bilutleie.dto.CustomerForDetailsDto;
 import no.hvl.dat109.bilutleie.model.Address;
 import no.hvl.dat109.bilutleie.model.Customer;
 import no.hvl.dat109.bilutleie.repository.CustomerRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final ModelMapper mapper;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, ModelMapper mapper) {
         this.customerRepository = customerRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -29,10 +32,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer createCustomer(CustomerForDetailsDto customerDetails) {
-        String forename = customerDetails.getForename();
-        String surname = customerDetails.getSurname();
-        Address address = new Address(customerDetails.getStreet(), customerDetails.getZip(), customerDetails.getCity());
-        return new Customer(forename, surname, address);
+    public Customer createCustomer(Customer customer) {
+        return save(customer);
+    }
+
+    @Override
+    public Customer add(CustomerForDetailsDto customerDto) {
+        var customer = new Customer();
+        mapper.map(customerDto, customer);
+        customer.setAddress(new Address(customerDto.getStreet(), customerDto.getZip(), customerDto.getCity()));
+        customer = save(customer);
+        return customer;
     }
 }

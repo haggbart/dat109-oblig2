@@ -21,8 +21,8 @@ public class Reservation {
     private Long id;
 
     private Long ccn;
-    private Long startMileage;
-    private Long endMilage;
+    private Integer startMileage;
+    private Integer endMilage;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 

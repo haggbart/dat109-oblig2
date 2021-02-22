@@ -30,8 +30,8 @@ public class CustomerData {
 
     public void createCustomers() {
         List<Customer> customers = new ArrayList<>() {{
-            add(new Customer("Atle Patle", new Address("Epic street 1", 2222, "Oslo")));
-            add(new Customer("Per Viskelær", new Address("Gulehagen 22", 3333, "Bergen")));
+            add(new Customer("Atle", "Patle", "atle@gmail.com", new Address("Epic street 1", 2222, "Oslo")));
+            add(new Customer("Per", "Viskelær", "per@gmail.com", new Address("Gulehagen 22", 3333, "Bergen")));
         }};
         customers.forEach(customerService::save);
 

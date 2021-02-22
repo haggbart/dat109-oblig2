@@ -55,7 +55,7 @@ public class ReservationService {
     public double makeReceipt(Reservation reservation) {
         var days = Duration.between(reservation.getStartDate(), reservation.getEndDate()).getSeconds() / (3600*24.0);
 
-        var price = CarCategory.getPrice(reservation.getCarCategory());
+        var price = CarCategory.costPerDay(reservation.getCarCategory());
 
         return days * price;
     }

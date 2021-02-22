@@ -54,12 +54,21 @@ public class ReservationFormController {
     @GetMapping("/offerselect")
     public String offerSelectForm(HttpSession session, Model model) {
 
+        if (session.getAttribute("reservation") == null) return "redirect:/";
+
         var reservation = (ReservationDto) session.getAttribute("reservation");
         log.debug("Reservation: {}", reservation);
-        model.addAttribute("categories", carService.availableCategories(reservation.getPickup(),
-                reservation.getStartDate(), reservation.getEndDate()));
-        model.addAttribute("city", reservation.getPickup().getAddress().getCity());
-        model.addAttribute("cars", carService.getCarsByOffice(reservation.getPickup()));
+
+
+        var offers = carService.availableCategories(reservation.getPickup(),
+                reservation.getStartDate(), reservation.getEndDate());
+
+        model.addAttribute("offers", offers);
+        model.addAttribute("reservation", reservation);
+
+//        model.addAttribute("city", reservation.getPickup().getAddress().getCity());
+//        model.addAttribute("cars", carService.getCarsByOffice(reservation.getPickup()));
+
         return "offerselect";
     }
 

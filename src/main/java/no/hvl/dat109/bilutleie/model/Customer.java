@@ -33,14 +33,16 @@ public class Customer {
     @OneToMany(mappedBy="customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Reservation> reservation = new HashSet<>();
 
-    public Customer(String forename, Address address) {
-        this.forename = forename;
-        this.address = address;
-    }
-
     public Customer(String forename, String surname, Address address) {
         this.forename = forename;
         this.surname = surname;
+        this.address = address;
+    }
+
+    public Customer(String forename, String surname, String email, Address address) {
+        this.forename = forename;
+        this.surname = surname;
+        this.email = email;
         this.address = address;
     }
 

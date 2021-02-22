@@ -1,6 +1,5 @@
 package no.hvl.dat109.bilutleie.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Data
 @Entity
@@ -23,7 +21,7 @@ public class Car {
     @Column(unique = true)
     private String vin;
 
-    private Long mileage;
+    private Integer mileage;
 
     private String brand;
 
@@ -40,6 +38,14 @@ public class Car {
 
     public Car(String vin, CarCategory category) {
         this.vin = vin;
+        this.category = category;
+    }
+
+    public Car(String vin, Integer mileage, String brand, String color, CarCategory category) {
+        this.vin = vin;
+        this.mileage = mileage;
+        this.brand = brand;
+        this.color = color;
         this.category = category;
     }
 

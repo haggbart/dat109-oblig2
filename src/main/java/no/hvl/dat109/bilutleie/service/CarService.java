@@ -1,10 +1,7 @@
 package no.hvl.dat109.bilutleie.service;
 
 import lombok.extern.slf4j.Slf4j;
-import no.hvl.dat109.bilutleie.model.Car;
-import no.hvl.dat109.bilutleie.model.CarCategory;
-import no.hvl.dat109.bilutleie.model.RentalOffice;
-import no.hvl.dat109.bilutleie.model.Reservation;
+import no.hvl.dat109.bilutleie.model.*;
 import no.hvl.dat109.bilutleie.repository.CarRepository;
 import no.hvl.dat109.bilutleie.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
@@ -50,7 +47,7 @@ public class CarService {
         return carRepository.findCarsByRentalOffice(office);
     }
 
-    public List<CarCategory> availableCategories(RentalOffice office, LocalDateTime start, LocalDateTime end) {
+    public List<Offer> availableCategories(RentalOffice office, LocalDateTime start, LocalDateTime end) {
         int[] categoryCount = new int[CarCategory.values().length];
         for (var car : office.getCars()) {
             categoryCount[car.getCategory().ordinal()]++;
@@ -62,9 +59,11 @@ public class CarService {
         }
         log.debug("Available cars for each category: {}", Arrays.toString(categoryCount));
 
-        List<CarCategory> availableCategories = new ArrayList<>();
+        List<Offer> availableCategories = new ArrayList<>();
         for (int i = 0; i < categoryCount.length; i++) {
-            if (categoryCount[i] > 0) availableCategories.add(CarCategory.values()[i]);
+            if (categoryCount[i] > 0) {
+                availableCategories.add(new Offer(CarCategory.values()[i]));
+            }
         }
         log.debug("Available categories: {}", availableCategories);
         return availableCategories;

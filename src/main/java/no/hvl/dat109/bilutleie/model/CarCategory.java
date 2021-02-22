@@ -3,12 +3,21 @@ package no.hvl.dat109.bilutleie.model;
 public enum CarCategory {
     A, B, C, D;
 
-    public static int getPrice(CarCategory category) {
+    public static int costPerDay(CarCategory category) {
         return switch (category) {
-            case A -> 2000;
-            case B -> 4000;
-            case C -> 4500;
-            case D -> 5000;
+            case A -> 485;
+            case B -> 701;
+            case C -> 836;
+            case D -> 676;
+        };
+    }
+
+    public static String description(CarCategory category) {
+        return switch (category) {
+            case A -> "Ford Fiesta";
+            case B -> "Ford Focus";
+            case C -> "Toyota RAV 4x4";
+            case D -> "VW Transporter 4x4";
         };
     }
 }

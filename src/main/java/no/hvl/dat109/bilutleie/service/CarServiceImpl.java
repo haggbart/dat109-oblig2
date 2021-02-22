@@ -71,12 +71,13 @@ public class CarServiceImpl implements CarService {
         return categoryCount;
     }
 
-    public Integer updateMileage(Reservation reservation, Integer mileage) {
-
+    public Integer updateMileage(Reservation reservation, Integer endMileage) {
         Car car = reservation.getCar();
-        car.setMileage(mileage);
+        Integer distance = endMileage - car.getMileage();
+
+        car.setMileage(endMileage);
         save(car);
 
-        return 0;
+        return distance;
     }
 }

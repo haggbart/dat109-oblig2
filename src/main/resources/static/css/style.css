@@ -9,6 +9,8 @@
 :root {
     --mainGrey: #ebebeb;
     --mainOrange: #ff7d19;
+
+    --innerGray: #f8f8f8;
 }
 
 body {
@@ -50,6 +52,10 @@ body {
 
 .text-warning {
     color: var(--mainOrange) !important;
+}
+
+.offer-summary {
+    background-color: var(--innerGray);
 }
 
 /*.container#main {*/

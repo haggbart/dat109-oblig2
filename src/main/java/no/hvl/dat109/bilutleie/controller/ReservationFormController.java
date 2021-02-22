@@ -5,6 +5,7 @@ import no.hvl.dat109.bilutleie.dto.CustomerForDetailsDto;
 import no.hvl.dat109.bilutleie.dto.ReservationDto;
 import no.hvl.dat109.bilutleie.dto.ReservationForLocationTimeDto;
 import no.hvl.dat109.bilutleie.model.CarCategory;
+import no.hvl.dat109.bilutleie.model.Offer;
 import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import no.hvl.dat109.bilutleie.service.ReservationService;
@@ -81,8 +82,10 @@ public class ReservationFormController {
 
     @GetMapping("/details")
     public String detailsForm(Model model, HttpSession session) {
+        var reservation = (ReservationDto) session.getAttribute("reservation");
         model.addAttribute("reservation", (ReservationDto) session.getAttribute("reservation"));
         model.addAttribute("customerDetails", new CustomerForDetailsDto());
+        model.addAttribute("offer", new Offer(reservation.getCarCategory()));
         return "details";
     }
 

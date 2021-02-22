@@ -11,5 +11,7 @@ public interface CustomerService {
 
     List<Customer> getPersons();
 
-    Customer createCustomer(CustomerForDetailsDto customerDetails);
+    Customer createCustomer(Customer customer);
+
+    Customer add(CustomerForDetailsDto customerDto);
 }

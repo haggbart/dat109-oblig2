@@ -50,15 +50,14 @@ public class ReservationController {
     }
 
     @PostMapping("/dropoff")
-    public String dropOff(@RequestParam Long id, Model model, HttpServletRequest request) {
+    public String dropOff(@RequestParam Long id, @RequestParam Integer endMileage, Model model) {
         log.debug("id = {}", id);
 
         Reservation reservation = reservationService.getReservation(id);
 
-        Integer mileage = Integer.valueOf(request.getParameter("endMileage"));
-        log.debug("new mileage = {}", mileage);
+        log.debug("new mileage = {}", endMileage);
 
-        Integer distance = carService.updateMileage(reservation, mileage);
+        Integer distance = carService.updateMileage(reservation, endMileage);
 
         reservationService.carReturn(reservation);
 

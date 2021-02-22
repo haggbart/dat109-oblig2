@@ -1,5 +1,6 @@
 package no.hvl.dat109.bilutleie.service;
 
+import no.hvl.dat109.bilutleie.dto.CustomerForDetailsDto;
 import no.hvl.dat109.bilutleie.dto.ReservationDto;
 import no.hvl.dat109.bilutleie.model.Car;
 import no.hvl.dat109.bilutleie.model.Reservation;
@@ -14,7 +15,7 @@ public interface ReservationService {
 
     Reservation getReservation(Long id);
 
-    Reservation createReservation(ReservationDto reservationDto);
+    Reservation add(CustomerForDetailsDto customerDto, ReservationDto reservationDto);
 
     void rentOutCar(Reservation reservation, Car car);
 

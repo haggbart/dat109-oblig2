@@ -1,10 +1,8 @@
 package no.hvl.dat109.bilutleie.service;
 
+import no.hvl.dat109.bilutleie.dto.CustomerForDetailsDto;
 import no.hvl.dat109.bilutleie.dto.ReservationDto;
-import no.hvl.dat109.bilutleie.model.Car;
-import no.hvl.dat109.bilutleie.model.CarCategory;
-import no.hvl.dat109.bilutleie.model.Reservation;
-import no.hvl.dat109.bilutleie.model.ReservationStatus;
+import no.hvl.dat109.bilutleie.model.*;
 import no.hvl.dat109.bilutleie.repository.ReservationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,10 +15,12 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final CustomerService customerService;
     private final ModelMapper mapper;
 
-    public ReservationServiceImpl(ReservationRepository reservationRepository, ModelMapper mapper) {
+    public ReservationServiceImpl(ReservationRepository reservationRepository, CustomerService customerService, ModelMapper mapper) {
         this.reservationRepository = reservationRepository;
+        this.customerService = customerService;
         this.mapper = mapper;
     }
 
@@ -40,11 +40,19 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation createReservation(ReservationDto reservationDto) {
-        Reservation reservation = new Reservation();
+    public Reservation add(CustomerForDetailsDto customerDto, ReservationDto reservationDto) {
+
+        Customer customer = customerService.add(customerDto);
+
+        var reservation = new Reservation();
         mapper.map(reservationDto, reservation);
-        return reservation;
+        customer.addReservation(reservation);
+        reservation.setCustomer(customer);
+
+        return save(reservation);
     }
+
+
 
     @Override
     public void rentOutCar(Reservation reservation, Car car) {

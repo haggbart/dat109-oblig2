@@ -5,11 +5,43 @@
 <th:block th:fragment="content">
 
 
-  <h1 th:text="|Vi fant ${categories.size()} tilbud|">Vi fant x tilbud</h1>
+  <h1 class="mt-4" th:text="|Vi fant ${offers.size()} tilbud|">Vi fant x tilbud</h1>
 
 
-  <form th:action="@{/reservation/offerselect}" method="post">
-    <button name="category" th:each="category : ${categories}" th:text="${category}" th:value="${category}" type="submit"></button>
+  <form class="mt-5" method="post" th:action="@{/reservation/offerselect}">
+    <div class="row m-1" th:each="offer : ${offers}">
+
+      <div class="col-4">
+        <img alt="" th:src="|@{/img/categories/}${offer.category}.png|" width="300px">
+      </div>
+      <div class="col-3">
+        <h4 th:text="${offer.description()}"></h4>
+        <span><b th:text="|eller lignende (gruppe ${offer.category})|">eller lignende</b></span>
+        <p class="mt-4">Dette tilbudet inkluderer:<br>
+          <span class="text-muted"><i class="fas fa-check text-warning"></i> Vinterdekk inkludert.</span>
+        </p>
+
+      </div>
+
+      <div class="col">
+        <div class="border p-3">
+          <div class="row">
+            <div class="col-7">
+              <span class="main-heading">GRATIS KANSELLERING</span>
+              <h5 th:text="|NOK ${offer.costPerDay()} pr dag|">NOK 501.62 pr dag</h5>
+              <span class="text-muted" th:text="|Totalt: NOK ${reservation.days() * offer.costPerDay()}|">Totalt: NOK 35113,73</span>
+            </div>
+            <div class="col-5">
+              <button class="btn btn-warning" name="category" th:value="${offer.category}" type="submit">
+                <span class="fw-bold p-1 text-light">BETAL SENERE</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <hr class="mb-4">
+    </div>
   </form>
 
 </th:block>

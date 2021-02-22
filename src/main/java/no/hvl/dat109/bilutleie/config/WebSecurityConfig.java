@@ -7,20 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-////        http.requiresChannel()
-////                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-////                .requiresSecure();
-//
-//        http.authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/h2-console/**").permitAll();
-//
-//        http.csrf().disable();
-//        http.headers().frameOptions().disable();
-//    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,7 +23,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
-
 
         // general
         http

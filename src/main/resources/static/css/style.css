@@ -33,6 +33,22 @@ body {
     color: var(--mainOrange) !important;
 }
 
+
+.main-heading {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--mainOrange) !important;
+}
+
+.btn-warning {
+    background-color: var(--mainOrange) !important;
+}
+
+.text-warning {
+    color: var(--mainOrange) !important;
+}
+
 /*.container#main {*/
 /*    margin-top: -0.40rem !important;*/
 /*}*/

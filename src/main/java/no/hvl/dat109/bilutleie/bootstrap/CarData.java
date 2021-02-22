@@ -24,17 +24,21 @@ public class CarData {
 
         // add cars office1
         List<Car> cars1 = new ArrayList<>() {{
-            add(new Car("NT 1337", CarCategory.B));
-            add(new Car("DE 313", CarCategory.A));
-            add(new Car("FE 500", CarCategory.C));
+
+            //    public Car(String vin, Long mileage, String brand, String color, CarCategory category, RentalOffice rentalOffice) {
+            add(new Car("NT 1337", 1400000, "BMW", "Svart", CarCategory.B));
+            add(new Car("DE 313", 43000, "Porshe", "Blå", CarCategory.A));
+            add(new Car("FE 500", 250000, "Ford", "Rød", CarCategory.C));
+            add(new Car("NO 884500", 20000, "Ford", "Rød", CarCategory.C));
+            add(new Car("NO 457854", 988500, "Ford", "Hvit", CarCategory.D));
         }};
         cars1.forEach(c -> c.setRentalOffice(officeService.getOffices().get(0)));
         cars1.forEach(carService::save);
 
         // add cars office2
         List<Car> cars2 = new ArrayList<>() {{
-            add(new Car("AB 1332", CarCategory.B));
-            add(new Car("NO 232", CarCategory.B));
+            add(new Car("AB 1332", 90400, "Opel", "Blå", CarCategory.B));
+            add(new Car("NO 232", 59000, "Opel", "Rød", CarCategory.A));
         }};
         cars2.forEach(c -> c.setRentalOffice(officeService.getOffices().get(1)));
         cars2.forEach(carService::save);

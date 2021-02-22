@@ -5,6 +5,7 @@ import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Customer;
 import no.hvl.dat109.bilutleie.model.RentalOffice;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,4 +22,8 @@ public class ReservationDto {
     private RentalOffice pickup;
 
     private RentalOffice dropoff;
+
+    public Long days() {
+        return Duration.between(startDate, endDate).toDays();
+    }
 }

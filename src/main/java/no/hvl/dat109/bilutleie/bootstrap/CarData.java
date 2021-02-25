@@ -30,7 +30,9 @@ public class CarData {
             add(new Car("DE 313", 43000, "Porshe", "Blå", CarCategory.A));
             add(new Car("FE 500", 250000, "Ford", "Rød", CarCategory.C));
             add(new Car("NO 884500", 20000, "Ford", "Rød", CarCategory.C));
-            add(new Car("NO 457854", 988500, "Ford", "Hvit", CarCategory.D));
+            add(new Car("NO 566465", 988500, "Ford", "Gul", CarCategory.D));
+            add(new Car("NO 588998", 488500, "Ford", "Grønn", CarCategory.A));
+            add(new Car("NO 562154", 589900, "Ford", "Hvit", CarCategory.B));
         }};
         cars1.forEach(c -> c.setRentalOffice(officeService.getOffices().get(0)));
         cars1.forEach(carService::save);

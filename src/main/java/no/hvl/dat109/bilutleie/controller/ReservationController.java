@@ -39,7 +39,6 @@ public class ReservationController {
 
         reservationService.addCreditCardNumber(request, reservation);
 
-        // TODO: Get the one actually available
         Car car = carService.getAvailable(reservation);
         reservationService.rentOutCar(reservation, car);
 

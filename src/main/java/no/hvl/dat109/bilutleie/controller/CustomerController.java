@@ -3,12 +3,10 @@ package no.hvl.dat109.bilutleie.controller;
 import lombok.extern.slf4j.Slf4j;
 import no.hvl.dat109.bilutleie.dto.CustomerForDetailsDto;
 import no.hvl.dat109.bilutleie.dto.ReservationDto;
-import no.hvl.dat109.bilutleie.service.CustomerService;
+import no.hvl.dat109.bilutleie.model.Reservation;
 import no.hvl.dat109.bilutleie.service.ReservationService;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +19,9 @@ import javax.validation.Valid;
 @Controller
 public class CustomerController {
 
-    private final CustomerService customerService;
-    private final ModelMapper mapper;
     private final ReservationService reservationService;
 
-    public CustomerController(CustomerService customerService, ModelMapper mapper, ReservationService reservationService) {
-        this.customerService = customerService;
-        this.mapper = mapper;
+    public CustomerController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
 
@@ -41,13 +35,10 @@ public class CustomerController {
 
         log.debug("Customer: {}", customerDetails);
         var reservationDto = (ReservationDto) session.getAttribute("reservation");
-        reservationService.add(customerDetails, reservationDto);
+        Reservation reservation = reservationService.add(customerDetails, reservationDto);
 
-        return "finish";
-    }
+        session.setAttribute("reservation", reservation);
 
-    @GetMapping
-    public String test() {
-        return "finish";
+        return "redirect:/reservation/finish";
     }
 }

@@ -6,6 +6,7 @@ import no.hvl.dat109.bilutleie.dto.ReservationDto;
 import no.hvl.dat109.bilutleie.dto.ReservationForLocationTimeDto;
 import no.hvl.dat109.bilutleie.model.CarCategory;
 import no.hvl.dat109.bilutleie.model.Offer;
+import no.hvl.dat109.bilutleie.model.Reservation;
 import no.hvl.dat109.bilutleie.service.CarService;
 import no.hvl.dat109.bilutleie.service.RentalOfficeService;
 import org.modelmapper.ModelMapper;
@@ -83,6 +84,17 @@ public class ReservationFormController {
         customerDetails.setOffer(new Offer(reservation.getCarCategory(), reservation.days()));
         model.addAttribute("customerDetails", customerDetails);
         return "details";
+    }
+
+    @GetMapping("/finish")
+    public String summary(Model model, HttpSession session) {
+        var reservation = (Reservation) session.getAttribute("reservation");
+        session.invalidate();
+        if (reservation == null) return "redirect:/";
+
+        model.addAttribute("reservation", reservation);
+
+        return "finish";
     }
 
     private boolean validDates(ReservationForLocationTimeDto locationTime, BindingResult bindingResult) {
